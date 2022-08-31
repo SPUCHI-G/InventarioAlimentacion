@@ -1,0 +1,27 @@
+﻿@model Inventario_Alimentacion.Models.Donante
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Donante</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Don_Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Don_Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Donante }) |
+    @Html.ActionLink("Back to List", "BusquedaFilter")
+</p>

@@ -1,0 +1,129 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.Proveedor>
+
+@{
+    ViewBag.Title = "Proveedor";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <header>
+        <h1 style="text-align: center">
+            <strong class="title">PROVEEDORES</strong>
+            @Html.ActionLink("Crear", "Create", null, new { @class = "btn btn-success" })
+        </h1>
+
+        <table class="table">
+            <tr>
+
+                @using (Html.BeginForm("BusquedaFilter", "Proveedors", FormMethod.Get))
+                {
+                    <td>
+                        <div>
+                            <h2>
+                                Busqueda por nombres : <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />@Html.TextBox("Nombre")
+                            </h2>
+                        </div>
+                    </td>
+                }
+                @using (Html.BeginForm("BusquedaFilter", "Proveedors", FormMethod.Get))
+                {
+                    <td>
+                        <div>
+                            <h2>
+                                Busqueda por documento :<input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />@Html.TextBox("Id")
+                            </h2>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </table>
+    </header>
+</div>
+<body>
+    <div>
+        <table class="table">
+            <tr>
+                <th style="text-align: center">
+                    @Html.DisplayName("TIPO DE DOCUMENTO")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("NÚMERO DE DOCUMENTO")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("NOMBRE COMPLETO")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("TELÉFONO")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("CELULAR")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("EMAIL")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("DIRECCION")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("FAX")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("ACTIVIDAD ECONÓMICA")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("CIUDAD")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("EDITAR")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("ELIMINAR")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Documento.TipoDocumento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prov_Docum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prov_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prov_Telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prov_Celular)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prov_Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prov_Direccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prov_Fax)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prov_ActiEcono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ciudad.Ciu_Nombre)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Prov_Docum }, new { @class = "img-btn-editar" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Prov_Docum }, new { @class = "img-btn-borrar" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</body>

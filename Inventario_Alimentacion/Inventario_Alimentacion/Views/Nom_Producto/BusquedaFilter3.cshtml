@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.Nom_Producto>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<section>
+    <table class="table-condensed" width="50%" align="center">
+        <tr>
+            <td>
+                @Html.ActionLink("Categorias", "BusquedaFilter", "Categorias", null, new { @class = "btn btn-info" })
+            </td>
+            <td>
+                @Html.ActionLink("Subcategorias", "BusquedaFilter2", "Subcategorias", null, new { @class = "btn btn-info" })
+            </td>
+            <td>
+                @Html.ActionLink("Nombre  Productos", "BusquedaFilter3", "Nom_Producto", null, new { @class = "btn btn-info" })
+            </td>
+        </tr>
+    </table>
+</section>
+<section>
+    <h1 style="text-align: center">
+        <strong class="title">PRODUCTOS</strong>
+        @Html.ActionLink("CREAR", "Create", "Nom_Producto", null, new { @class = "btn btn-success" })
+    </h1>
+
+    @using (Html.BeginForm("BusquedaFilter3", "Nom_Producto", FormMethod.Get))
+    {
+        <div class="form-horizontal" style="float: left">
+            <h2>
+                Buscar Producto: @Html.TextBox("nom")
+                <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />
+            </h2>
+        </div>
+
+    }
+
+</section>
+
+<table class="table">
+    <tr>
+
+        <th style="text-align:center">
+            <strong>@Html.DisplayName("NOMBRE DEL PRODUCTO")</strong>
+        </th>
+        <th style="text-align:center">
+            <strong>@Html.DisplayName("Punto de Pedido")</strong>
+        </th>
+        <th style="text-align:center">
+            <strong>@Html.DisplayName("Cantidad Solicitar")</strong>
+        </th>
+        <th style="text-align:center">
+            <strong>@Html.DisplayName("Info Adicional")</strong>
+        </th>
+        <th>
+            <strong>@Html.DisplayName("EDITAR")</strong>
+        </th>
+        <th>
+            <strong> @Html.DisplayName("ELIMINAR")</strong>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Min)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Punto_pedido)
+            </td>
+            <td>
+                @if (item.Prop_Adicion == true) //verifica si el usuario esta activo o no y muestra El string en vez del int
+                {
+                    @Html.Label("SI")
+                }
+                else
+                {
+                    if (item.Prop_Adicion == false)
+                    {
+                        @Html.Label("NO")
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_NomProducto }, new { @class = "img-btn-editar" })
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID_NomProducto }, new { @class = "img-btn-borrar" })
+            </td>
+        </tr>
+    }
+
+</table>

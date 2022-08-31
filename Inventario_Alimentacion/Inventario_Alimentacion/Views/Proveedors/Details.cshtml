@@ -1,0 +1,90 @@
+﻿@model Inventario_Alimentacion.Models.Proveedor
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Proveedor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <b>Tipo de  Documento: </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_TipoDocum)
+        </dd>
+
+        <dt>
+            <b>Ciudad: </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_Ciudad)
+        </dd>
+
+        <dt>
+            <b>Nombre del proveedor: </b></dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prov_Nombre)
+        </dd>
+
+        <dt>
+            <b>Teléfono: </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prov_Telefono)
+        </dd>
+
+        <dt>
+            <b>Celular: </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prov_Celular)
+        </dd>
+
+        <dt>
+            <b>Email: </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prov_Email)
+        </dd>
+
+        <dt>
+            <b>Dirección: </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prov_Direccion)
+        </dd>
+
+        <dt>
+            <b>Fax: </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prov_Fax)
+        </dd>
+
+        <dt>
+            <b>Actividad Económica: </b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prov_ActiEcono)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Prov_Docum }) |
+    @Html.ActionLink("Back to List", "BusquedaFilter")
+</p>

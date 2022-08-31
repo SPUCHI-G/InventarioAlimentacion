@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <h1></h1>
+    <h1 style="text-align: center">
+    </h1>
+    <section>
+        <table class="table-condensed" width="50%" align="center">
+            <tr>
+                <td>
+                    @Html.ActionLink("Inventario actual", "Inventario", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                </td>
+                <td>
+                    @Html.ActionLink("Proximos a vencer", "Proximos", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                </td>
+                <td>
+                    @Html.ActionLink("Vencidos en stock", "Vencidos", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                </td>
+                <td>
+                    @Html.ActionLink("Informes", "Informes", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        </table>
+    </section>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-sm-6" style="padding:10px">
+            @using (Html.BeginForm("GenerarExcel_Vencidos", "ConsultaInventario", FormMethod.Get))
+            {
+                <input type="submit" class="Informes" value="Informe productos vencidos" />
+            }
+        </div>
+
+        <div class="col-lg-3 col-sm-6" style="padding:10px">
+            @using (Html.BeginForm("GenerarExcel_Inventario", "ConsultaInventario", FormMethod.Get))
+            {
+                <input type="submit" class="Informes" value="Informe Inventario mensual" />
+            }
+        </div>
+        <div class="col-lg-3 col-sm-6" style="padding:10px">
+            @using (Html.BeginForm("GenerarExcel_Det_Ent", "ConsultaInventario", FormMethod.Get))
+            {
+                <input type="submit" class="Informes" value="Informe entrada mes actual" />
+            }
+        </div>
+        <div class="col-lg-3 col-sm-6" style="padding:10px">
+            @using (Html.BeginForm("GenerarExcel_Det_Sal", "ConsultaInventario", FormMethod.Get))
+            {
+                <input type="submit" class="Informes" value="Informe salidas mes actual" />
+            }
+        </div>
+        <div class="col-lg-3 col-sm-6" style="padding:10px">
+            @using (Html.BeginForm("GenerarExcel", "ConsultaInventario", FormMethod.Get))
+            {
+                <input type="submit" class="Informes" value="Informe Indicadores de punto de partida" />
+            }
+        </div>
+    </div>
+
+</div>

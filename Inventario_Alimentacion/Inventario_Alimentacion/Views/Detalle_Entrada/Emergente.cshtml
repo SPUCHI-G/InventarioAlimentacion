@@ -1,0 +1,146 @@
+﻿
+@model IEnumerable<Inventario_Alimentacion.Models.Temporal>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_LayoutEmergente.cshtml";
+}
+
+
+@using (Html.BeginForm("AgregarADetalle", "Detalle_Entrada", FormMethod.Get))
+{   <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <div class="form-horizontal" style=" float: left">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" id="btnGuardar" class="btn btn-success" />
+        </div>
+    </div>
+
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table>
+                    <tr>
+                        <th>
+                            @Html.Label("Chequeo")
+                        </th>
+                        <th>
+                            @Html.DisplayName("ID")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Categoria")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Subcategoria")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Producto")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Cantidad/Peso")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Temperatura")
+                        </th>
+                        <th>
+                            @Html.DisplayName("FechVencim")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Tipo de entrada")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Proveedor")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Donante")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Factura")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Precio Unitario")
+                        </th>
+                        <th>
+                            @Html.DisplayName("IVA")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Descuento")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Precio Total")
+                        </th>
+                    </tr>
+
+                    @foreach (Inventario_Alimentacion.Models.Temporal item in ViewBag.TemporalList)
+                    {
+                <tr>
+                    <td>
+                        @Html.CheckBox("Confirmed" + item.ID_NomProducto, false, new { @class = "isCheck" })
+
+                        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                        <script type="text/javascript">
+                            if ($('#Confirmed1').is(':checked')) {
+                                debugger
+                                $('#btnGuardar').prop('disabled', false);
+                                console.log("Checkbox seleccionado");
+                            }
+                        </script>
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID_Det_entr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Categoria.Cat_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Subcategoria.Subca_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Nom_Producto.NomProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Cantidad_Peso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Temperatura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_FechVencim)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Entrada.Tipo_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Proveedor.Prov_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Donante.Don_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Factura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Precio_Unitario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_iva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Descuento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Precio_Total)
+                    </td>
+                </tr>
+                    }
+
+                </table>
+            </div>
+          
+        </div>
+        
+    </div>
+    }

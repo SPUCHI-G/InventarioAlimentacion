@@ -1,0 +1,208 @@
+﻿@model Inventario_Alimentacion.Models.Temporal2
+
+@{
+    ViewBag.Title = "Empleado";
+    Layout = "~/Views/Shared/_LayoutSalida.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<div class="container">
+
+    @using (Html.BeginForm("AgregarATemporal", "Detalle_Salida", FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+        <section style="flex-direction: row">
+            <div>
+                <h1 style="text-align: center">
+                    <strong class="title">CREAR SALIDA INVENTARIO</strong>
+                </h1>
+
+            </div>
+        </section>
+
+        <section style="flex-direction: row">
+
+            <table class="table">
+                <tr>
+                    <td>
+                        <div class="form-horizontal" style="float: left">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            @Html.Label("Categoria:  ", "Categoria")
+                            <div>
+                                @if (ViewBag.CategoriaList != null)
+                                {
+                                    @Html.DropDownListFor(m => m.ID_Categoria, ViewBag.CategoriaList as SelectList, "--- Select Category Name ---", new { @class = "form-control", required = "required" })
+                                }
+                            </div>
+
+                            @Html.Label("Subcategoria:  ", "Subcategoria")
+                            <div>
+                                @Html.DropDownListFor(m => m.ID_Subcategoria, new SelectList(""), "--- Select Subcategory ---", new { @class = "form-control", required = "required" })
+                            </div>
+                            @Html.Label("Producto:  ", "Producto")
+                            <div>
+                                @Html.DropDownListFor(m => m.ID_NomProducto, new SelectList(""), "--- Select ProductName ---", new { @class = "form-control", required = "required" })
+                            </div>
+
+                            <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                            <script>
+                                $(document).ready(function () {
+                                    $("#ID_Categoria").change(function () {
+                                        var c = $(this).val();
+                                        debugger
+                                        $.ajax({
+                                            type: "post",
+                                            url: "/Detalle_Entrada/GetSubcategoriaList?ID_Categoria=" + c,
+                                            contentType: "html",
+                                            success: function (response) {
+                                                debugger
+                                                $("#ID_Subcategoria").empty();
+                                                $("#ID_Subcategoria").append(response);
+                                            }
+                                        })
+                                    })
+                                    $("#ID_Subcategoria").change(function () {
+                                        var o = $(this).val();
+                                        debugger
+                                        $.ajax({
+                                            type: "post",
+                                            url: "/Detalle_Entrada/GetNom_ProductoList?ID_Subcategoria=" + o,
+                                            contentType: "html",
+                                            success: function (response) {
+                                                debugger
+                                                $("#ID_NomProducto").empty();
+                                                $("#ID_NomProducto").append(response);
+                                            }
+                                        })
+                                    })
+                                })
+                            </script>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-horizontal" style="float: left">
+                            <div>
+                                @Html.Label("Cantidad:    ")
+                                @Html.EditorFor(model => model.Sal_Cantidad_Peso, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Sal_Cantidad_Peso, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-horizontal" style="float: left">
+                            <div>
+
+                                @Html.Label("Tipo de Salida:   ")
+                                @Html.DropDownList("fk_TipoSalida", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.fk_TipoSalida, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-horizontal" style="float: left">
+                            <div>
+
+                                @Html.Label("Observaciones:   ")
+                                @Html.TextAreaFor(model => model.Sal_Observacion, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Sal_Observacion, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <hr />
+            <div class="form-horizontal" style=" float: left">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Agregar" class="btn btn-primary" />
+                </div>
+            </div>
+        </section>
+    }
+    <asp:UpdatePanel id="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <asp:Panel id="popup" visible="false" runat="server" style="margin:30px">
+            </asp:Panel>
+
+            <asp:AlwaysVisibleControlExtender ID="AlwaysVisibleControlExtender1" TargetControlID="popup" runat="server" />
+            <asp:DragPanelExtender ID="DragPanelExtender1" TargetControlID="popup" runat="server" />
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <button class="btn btn-success" onclick="window.open('Emergente', 'www.google.co.il', 'location=yes,resizable=yes,scrollbars=yes,status=yes');">Terminar</button>
+
+</div>
+
+<div>
+    <section>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.Label("")
+                </th>
+                <th>
+                    @Html.Label("GESTION")
+                </th>
+                <th>
+                    @Html.DisplayName("ID")
+                </th>
+                <th>
+                    @Html.DisplayName("Categoria")
+                </th>
+                <th>
+                    @Html.DisplayName("Subcategoria")
+                </th>
+                <th>
+                    @Html.DisplayName("Producto")
+                </th>
+                <th>
+                    @Html.DisplayName("Tipo de Salida")
+                </th>
+                <th>
+                    @Html.DisplayName("Cantidad / Peso")
+                </th>
+                <th>
+                    @Html.DisplayName("Observaciones")
+                </th>
+
+
+
+            </tr>
+            @foreach (Inventario_Alimentacion.Models.Temporal2 item in ViewBag.TemporalList)
+            {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Temporal2", new { id = item.ID_Det_salid }, new { @class = "img-btn-editar" })
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", "Temporal2", new { id = item.ID_Det_salid }, new { @class = "img-btn-borrar" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_Det_salid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.Categoria.Cat_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.Subcategoria.Subca_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.Nom_Producto.NomProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo_Salida.Tipo_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sal_Cantidad_Peso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sal_Observacion)
+            </td>
+        </tr>
+            }
+        </table>
+    </section>
+</div>

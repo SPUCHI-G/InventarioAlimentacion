@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.spBuscar_ProxVencer_Result>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <header>
+        @Html.AntiForgeryToken()
+        <section>
+            <table class="table-condensed" width="50%" align="center">
+                <tr>
+                    <td>
+                        @Html.ActionLink("Inventario actual", "Inventario", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Proximos a vencer", "Proximos", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Vencidos en stock", "Vencidos", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Informes", "Informes", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <table class="table">
+
+            @using (Html.BeginForm())
+            {
+                <tr>
+                    <td>
+                        <h2>BUSQUEDA    <span><input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" /></span> </h2>
+                    </td>
+                </tr>
+                <tr>
+
+
+                    <td>
+                        <div>
+                            <h2>
+                                Categoria: @Html.TextBox("ID_Categoria")
+                            </h2>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>
+                                Subcategoria:@Html.TextBox("ID_Subcategoria")
+                            </h2>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>
+                                Producto:@Html.TextBox("ID_NomProducto")
+                            </h2>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </header>
+</div>
+<body>
+    <div>
+
+        <table>
+            <tr>
+                <th style="text-align: center">
+                    @Html.DisplayName("Fecha de vencimiento")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Categorias")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Subcategoría")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Producto")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Cantidad Peso")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Valor Unitario")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Valor Total")
+                </th>
+            </tr>
+            @foreach (Inventario_Alimentacion.Models.spBuscar_ProxVencer_Result item in ViewBag.Listap)
+            {
+                <tr>
+                     <td>
+                        @Html.DisplayFor(modelItem => item.Ent_FechVencim)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cat_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subca_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Cantidad_Peso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Precio_Unitario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Precio_Total)
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</body>

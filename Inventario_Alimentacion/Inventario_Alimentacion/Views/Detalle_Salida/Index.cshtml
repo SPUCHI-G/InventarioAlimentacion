@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.Detalle_Salida>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <header>
+        <h1 style="text-align: center">
+            <strong class="title">DETALLES DE SALIDA</strong>
+        </h1>
+        <table class="table">
+            <tr>
+
+                @using (Html.BeginForm("Index", "Detalle_Salida", FormMethod.Get))
+                {
+                    <td>
+                        <div>
+                            <h2>
+                                Fecha Inicial: <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />@Html.Editor("FechaI", new { htmlAttributes = new { @class = "form-control datepicker", Value = DateTime.Now.ToShortDateString(), @type = "date" } })
+                            </h2>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>
+                                Fecha Final:  <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" /> @Html.Editor("FechaF", new { htmlAttributes = new { @class = "form-control datepicker", Value = DateTime.Now.ToShortDateString(), @type = "date" } })
+
+                            </h2>
+                        </div>
+                    </td>
+
+                }
+            </tr>
+        </table>
+    </header>
+</div>
+
+<body>
+    <div>
+        <table class="table">
+            <tr>
+                <th style="text-align:center">
+                    @Html.DisplayName("EDITAR")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("ID")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("FECHA DE SALIDA")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("EMPLEADO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("CATEGORÍA")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("SUBCATEGORÍA")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("PRODUCTO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("CANTIDAD PESO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("TIPO DE SALIDA")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("OBSERVACIONES")
+                </th>
+            </tr>
+
+            @foreach (Inventario_Alimentacion.Models.spMostrarDeta_Salidas_Result item in ViewBag.Lista)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_Det_salid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sali_Fecha)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Emp_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cat_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subca_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomProducto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sal_Cantidad_Peso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sal_Observacion)
+            </td>
+        </tr>
+            }
+
+        </table>
+    </div>
+</body>

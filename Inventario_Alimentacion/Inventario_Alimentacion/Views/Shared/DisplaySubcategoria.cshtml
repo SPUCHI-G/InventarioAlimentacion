@@ -1,0 +1,11 @@
+﻿@model Inventario_Alimentacion.Models.Subcategoria
+
+
+<option value="">--- Select Subcategory ---</option>
+@if (ViewBag.SubcategoriaList != null)
+{
+    foreach (var item in ViewBag.SubcategoriaList)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

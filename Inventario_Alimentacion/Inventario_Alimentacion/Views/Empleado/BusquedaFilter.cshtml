@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.Empleado>
+
+@{
+    ViewBag.Title = "Empleado";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <h1 style="text-align: center">
+        <strong class="title">EMPLEADOS REGISTRADOS</strong>
+        @Html.ActionLink("CREAR NUEVO", "Create", null, new { @class = "btn btn-success" })
+    </h1>
+<table class="table">
+    <tr>
+        <td>
+            @using (Html.BeginForm("BusquedaFilter", "Empleado", FormMethod.Get))
+            {
+                <div class="form-horizontal" style="float: left">
+                    <h2>
+                        Buscar por Documento : @Html.TextBox("Id")
+                        <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn"/>
+                    </h2>
+                </div>
+            }
+        </td>
+        <td>
+            @using (Html.BeginForm("BusquedaFilter", "Empleado", FormMethod.Get))
+            {
+                <div class="form-horizontal" style="float: left">
+                    <h2>
+                        Buscar por Nombres : @Html.TextBox("Nombre")
+                        <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />
+                    </h2>
+                </div>
+
+            }
+        </td>
+
+    </tr>
+</table>
+
+
+
+
+<table class="table">
+    <tr>
+        <th style="text-align: center">
+            @Html.DisplayName("NÚMERO DE DOCUMENTO")
+        </th>
+        <th style="text-align: center">
+            @Html.DisplayName("NOMBRE COMPLETO")
+        </th>
+        <th style="text-align: center">
+            @Html.DisplayName("TELÉFONO")
+        </th>
+        <th style="text-align: center">
+            @Html.DisplayName("CELULAR")
+        </th>
+        <th style="text-align: center">
+            @Html.DisplayName("EMAIL")
+        </th>
+        <th style="text-align: center">
+            @Html.DisplayName("AREA")
+        </th>
+        <th style="text-align: center">
+            @Html.DisplayName("CARGO")
+        </th>
+        <th style="text-align: center">
+            @Html.DisplayName("EDITAR")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Emp_Documento)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Emp_Nombre)
+        @Html.DisplayFor(modelItem => item.Emp_Apellido)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Emp_Telefono)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Emp_Celular)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Emp_Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Emp_Area)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Cargo.Nombre)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Emp_Documento }, new { @class = "img-btn-editar" })
+    </td>
+</tr>
+    }
+
+</table>

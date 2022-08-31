@@ -1,0 +1,96 @@
+﻿
+@model IEnumerable<Inventario_Alimentacion.Models.Temporal>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_LayoutEmergente.cshtml";
+}
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <div class="container">
+        @using (Html.BeginForm("AgregarADetalle", "Detalle_Salida", FormMethod.Get))
+        {@Html.AntiForgeryToken()
+
+             <div class="row">
+                <div class="col col-xs-12 ">
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.Label("Chequeo")
+                            </th>
+                            <th>
+                                @Html.DisplayName("ID")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Categoria")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Subcategoria")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Producto")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Tipo de Salida")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Cantidad / Peso")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Observaciones")
+                            </th>
+                        </tr>
+
+                        @foreach (Inventario_Alimentacion.Models.Temporal2 item in ViewBag.TemporalList)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.CheckBox("Confirmed" + item.ID_NomProducto, false, new { @class = "isCheck" })
+
+                                    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                                    <script type="text/javascript">
+                                        if ($('#Confirmed1').is(':checked')) {
+                                            debugger
+                                            $('#btnGuardar').prop('disabled', false);
+                                            console.log("Checkbox seleccionado");
+                                        }
+                                    </script>
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ID_Det_salid)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Producto.Categoria.Cat_Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Producto.Subcategoria.Subca_Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Producto.Nom_Producto.NomProducto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tipo_Salida.Tipo_Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sal_Cantidad_Peso)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sal_Observacion)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+
+             </div>
+
+
+             <div class="row">
+                <div class="col col-xs-12">
+                    <input type="submit" value="Guardar" id="btnGuardar" class="btn btn-success " style="display:block" />
+                </div>
+             </div>
+
+         }
+    </div>

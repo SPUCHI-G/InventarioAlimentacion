@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.Donante>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <header>
+        <h1 style="text-align: center">
+            <strong class="title">DONANTES REGISTRADOS</strong>
+            @Html.ActionLink("CREAR NUEVO", "Create", null, new { @class = "btn btn-success" })
+        </h1>
+        <table class="table">
+            <tr>
+                <td>
+                    @using (Html.BeginForm("BusquedaFilter", "Donantes", FormMethod.Get))
+                    {
+                        <div>
+                            <h2>
+                                Busqueda por documento: @Html.TextBox("Id")
+                                <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />
+                            </h2>
+                        </div>
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm("BusquedaFilter", "Donantes", FormMethod.Get))
+                    {
+                        <div>
+                            <h2>
+                                Busqueda por nombres : @Html.TextBox("Nombre")
+                                <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />
+                            </h2>
+                        </div>
+                    }
+                </td>
+
+            </tr>
+        </table>
+    </header>
+</div>
+<body>
+    <div>
+        <table class="table">
+            <tr>
+                <th style="text-align:center">
+                    @Html.DisplayName("NÚMERO DE DOCUMENTO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("NOMBRE COMPLETO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("EDITAR")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("ELIMINAR")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID_Donante)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Don_Nombre)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID_Donante }, new { @class = "img-btn-editar" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID_Donante }, new { @class = "img-btn-borrar" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</body>

@@ -1,0 +1,69 @@
+﻿@model Inventario_Alimentacion.Models.Empleado
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Empleado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayName("Nombre completo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Nombre)
+            @Html.DisplayFor(model => model.Emp_Apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Teléfono")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Celular")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Celular)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("E-mail")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cargo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cargo.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Area")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Area)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Emp_Documento }) |
+    @Html.ActionLink("Back to List", "BusquedaFilter")
+</p>

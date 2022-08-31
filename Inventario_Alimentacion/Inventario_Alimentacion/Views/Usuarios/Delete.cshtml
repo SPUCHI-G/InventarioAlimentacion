@@ -1,0 +1,63 @@
+﻿@model Inventario_Alimentacion.Models.Usuario
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+
+<h1 style="text-align: center"><strong class="title">ELIMINAR USUARIO</strong></h1>
+<h3 style="text-align: center">¿Está seguro de eliminar este usuario?</h3>
+<p style="text-align: center">NOTA: si intenta borrar un usuario que ya se relacionó en alguna  entrada no dejara borrar</p>
+<br />
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Nombre Usuario")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usu_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Estado de cuenta")
+        </dt>
+
+        <dd>
+            @if (Model.Usu_Activo == 1) //verifica si el usuario esta activo o no y muestra El string en vez del int
+            {
+                @Html.Label("Activo")
+            }
+            else
+            {
+                if (Model.Usu_Activo == 0)
+                {
+                    @Html.Label("Inactivo")
+                }
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Empleado al que le pertenece")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empleado.Emp_Nombre)
+            @Html.DisplayFor(model => model.Empleado.Emp_Apellido)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Volver a la lista", "BusquedaFilter")
+        </div>
+    }
+</div>

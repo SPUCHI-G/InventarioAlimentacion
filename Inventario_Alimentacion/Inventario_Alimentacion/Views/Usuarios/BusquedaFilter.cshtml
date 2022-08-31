@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.Usuario>
+
+@{
+    ViewBag.Title = "BusquedaFilter";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <h1 style="text-align: center">
+        <strong class="title">USUARIOS REGISTRADOS</strong>
+        @Html.ActionLink("CREAR NUEVO", "Create", null, new { @class = "btn btn-success" })
+    </h1>
+
+<table class="table">
+    <tr>
+        <td>
+            @using (Html.BeginForm("BusquedaFilter", "Usuarios", FormMethod.Get))
+            {
+                <div>
+                    <h2>
+                        Busqueda por Usuario : @Html.TextBox("NomUsuario")
+                        <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />
+                    </h2>
+                </div>
+            }
+        </td>
+
+    </tr>
+</table>
+<table class="table">
+    <tr>
+        <th>
+            <strong>@Html.DisplayName("NOMBRE DE USUARIO")</strong>
+        </th>
+        <th>
+            <strong>@Html.DisplayName("ESTADO DE CUENTA")</strong>
+        </th>
+        <th>
+            <strong>@Html.DisplayName("NÚMERO DE DOCUMENTO")</strong>
+        </th>
+        <th>
+            <strong>@Html.DisplayName("EMPLEADO AL QUE PERTENECE")</strong>
+        </th>
+        <th>
+            <strong>@Html.DisplayName("EDITAR")</strong>
+        </th>
+        <th>
+            <strong>@Html.DisplayName("ELIMINAR")</strong>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Usu_Nombre)
+    </td>
+    <td>
+        @if (item.Usu_Activo == 1) //verifica si el usuario esta activo o no y muestra El string en vez del int
+        {
+            @Html.Label("Activo")
+        }
+        else
+        {
+            if (item.Usu_Activo == 0)
+            {
+                @Html.Label("Inactivo")
+            }
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Empleado.Emp_Documento)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Empleado.Emp_Nombre)
+        @Html.DisplayFor(modelItem => item.Empleado.Emp_Apellido)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Usu_Nombre }, new { @class = "img-btn-editar" })
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "Delete", new { id = item.Usu_Nombre }, new { @class = "img-btn-borrar" })
+    </td>
+</tr>
+    }
+
+</table>

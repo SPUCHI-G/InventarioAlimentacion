@@ -1,0 +1,154 @@
+﻿@model Inventario_Alimentacion.Models.Temporal
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h1 style="text-align: center">
+    <strong class="title">ELIMINAR</strong>
+</h1>
+<h3>¿Está seguro de eliminar este registro temporal?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("ID: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Det_entr)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Categoria: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Categoria.Cat_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Subcategoria: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Subcategoria.Subca_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Producto: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Nom_Producto.NomProducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Peso: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Peso)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Temperatura: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Temperatura)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Fecha de vencimiento: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_FechVencim)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Tipo de entrada: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Entrada.Tipo_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Proveedor: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proveedor.Prov_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Donante: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Donante.Don_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Factura: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Factura)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cantidad: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Precio: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("IVA: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_iva)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Descuento: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Descuento)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Total")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Total)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("REGRESAR", "Create", "Detalle_Entrada")
+        </div>
+    }
+</div>

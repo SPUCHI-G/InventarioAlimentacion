@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.spBuscarDetEmpleado_up_Result>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <header>
+        <h1 style="text-align: center">
+            <strong class="title">REGISTROS POR EMPLEADO</strong>
+        </h1>
+        <table class="table">
+            <tr>
+
+                @using (Html.BeginForm("RegisEmpleado", "BuscarDetEmp", FormMethod.Get))
+                {
+                    <td>
+                        <div>
+                            <h2>
+                                Identificacion del empleado: <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" /> @Html.Editor("id", new { htmlAttributes = new { @class = "form-control" } })
+                            </h2>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>
+                                Fecha Inicial: @Html.Editor("FechaI", new { htmlAttributes = new { @class = "form-control datepicker", Value = DateTime.Now.ToShortDateString(), @type = "date" } })
+                            </h2>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>
+                                Fecha Final:  @Html.Editor("FechaF", new { htmlAttributes = new { @class = "form-control datepicker", Value = DateTime.Now.ToShortDateString(), @type = "date" } })
+
+                            </h2>
+                            <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" />
+                        </div>
+                    </td>
+
+                }
+            </tr>
+        </table>
+    </header>
+</div>
+<body>
+    <div>
+        <table class="table">
+            <tr>
+                <th style="text-align: center">
+                    @Html.DisplayName("Empleado encargado")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Fecha de movimiento")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Categorias")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Subcategoría")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Producto")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Cantidad Peso")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Tipo de entrada o salida")
+                </th>
+                <th style="text-align: center">
+                    @Html.DisplayName("Tipo de movimiento")
+                </th>
+            </tr>
+            @foreach (Inventario_Alimentacion.Models.spBuscarDetEmpleado_up_Result item in ViewBag.Lista)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fullname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cat_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subca_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Cantidad_Peso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Nombre)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+</body>
+
+

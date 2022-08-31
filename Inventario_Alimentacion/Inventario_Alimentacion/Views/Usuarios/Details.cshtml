@@ -1,0 +1,55 @@
+﻿@model Inventario_Alimentacion.Models.Usuario
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayName("Nombre Usuario:  ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usu_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Estado de cuenta:    ")
+        </dt>
+
+        <dd>
+            @if (Model.Usu_Activo == 1) //verifica si el usuario esta activo o no y muestra El string en vez del int
+            {
+                @Html.Label("Activo")
+            }
+            else
+            {
+                if (Model.Usu_Activo == 0)
+                {
+                    @Html.Label("Inactivo")
+                }
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Nombre del Empleado: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empleado.Emp_Nombre)
+            @Html.DisplayFor(model => model.Empleado.Emp_Apellido)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Usu_Nombre }) |
+    @Html.ActionLink("Back to List", "BusquedaFilter")
+</p>

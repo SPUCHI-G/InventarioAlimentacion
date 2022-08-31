@@ -1,0 +1,121 @@
+﻿@model Inventario_Alimentacion.Models.Detalle_Salida
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h1 style="text-align: center">
+    <strong class="title">EDITAR REGISTRos salida</strong>
+</h1>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID_Det_salid)
+
+    <div class="form-group">
+        @Html.Label("ID: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ID_Det_salid, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.ID_Det_salid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("ID Salida: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.fk_Salida, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.fk_Salida, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Tipo Salida", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("fk_TipoSalida", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.fk_TipoSalida, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Categoria: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @if (ViewBag.CategoriaList != null)
+            {
+                @Html.DropDownList("ID_Categoria", ViewBag.CategoriaList as SelectList, "--- Select Category Name ---", new { @class = "form-control", required = "required" })
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Subcategoria: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("ID_Subcategoria", new SelectList(""), "--- Select Subcategory ---", new { @class = "form-control", required = "required" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Producto: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("ID_NomProducto", new SelectList(""), "--- Select ProductName ---", new { @class = "form-control", required = "required" })
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ID_Categoria").change(function () {
+                var c = $(this).val();
+                debugger
+                $.ajax({
+                    type: "post",
+                    url: "/Detalle_Entrada/GetSubcategoriaList?ID_Categoria=" + c,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#ID_Subcategoria").empty();
+                        $("#ID_Subcategoria").append(response);
+                    }
+                })
+            })
+            $("#ID_Subcategoria").change(function () {
+                var o = $(this).val();
+                debugger
+                $.ajax({
+                    type: "post",
+                    url: "/Detalle_Entrada/GetNom_ProductoList?ID_Subcategoria=" + o,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#ID_NomProducto").empty();
+                        $("#ID_NomProducto").append(response);
+                    }
+                })
+            })
+        })
+    </script>
+
+    <div class="form-group">
+        @Html.Label("Cantidad/Peso: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Sal_Cantidad_Peso, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(model => model.Sal_Cantidad_Peso, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Observacion: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Sal_Observacion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Sal_Observacion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="MODIFICAR" class="btn btn-success" />|
+            @Html.ActionLink("Volver a la lista", "Index", "Detalle_Salida")
+        </div>
+    </div>
+</div>
+}

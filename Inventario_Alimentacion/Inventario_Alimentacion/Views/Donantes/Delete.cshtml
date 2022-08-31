@@ -1,0 +1,35 @@
+﻿@model Inventario_Alimentacion.Models.Donante
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h1 style="text-align: center">
+    <strong class="title">ELIMINAR DONANTE</strong>
+</h1>
+<h3>¿Está seguro de eliminar este Donante?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Nombre: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Don_Nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Volver a la lista", "BusquedaFilter")
+        </div>
+    }
+</div>

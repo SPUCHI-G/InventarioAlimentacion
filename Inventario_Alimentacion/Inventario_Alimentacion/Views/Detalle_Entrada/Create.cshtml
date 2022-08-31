@@ -1,0 +1,343 @@
+﻿@model  Inventario_Alimentacion.Models.Temporal
+
+@{
+    ViewBag.Title = "Empleado";
+    Layout = "~/Views/Shared/_LayoutIngreso.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+
+
+<div class="container">
+    @using (Html.BeginForm("AgregarTemporal", "Detalle_Entrada", FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+        <section style="flex-direction: row">
+            <div>
+                <h1 style="text-align: center">
+                    <strong class="title">CREAR INGRESO INVENTARIO</strong>
+                </h1>
+
+            </div>
+        </section>
+        <section style="flex-direction: row">
+
+            <table class="table">
+                <tr>
+                    <td>
+                        <div class="form-horizontal" style="float: left">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            @Html.Label("Categoria:  ", "Categoria")
+                            <div>
+                                @if (ViewBag.CategoriaList != null)
+                                {
+                                    @Html.DropDownListFor(m => m.ID_Categoria, ViewBag.CategoriaList as SelectList, "--- Select Category Name ---", new { @class = "form-control", required = "required" })
+                                }
+                            </div>
+
+                            @Html.Label("Subcategoria:  ", "Subcategoria")
+                            <div>
+                                @Html.DropDownListFor(m => m.ID_Subcategoria, new SelectList(""), "--- Select Subcategory ---", new { @class = "form-control", required = "required" })
+                            </div>
+                            @Html.Label("Producto:  ", "Producto")
+                            <div>
+                                @Html.DropDownListFor(m => m.ID_NomProducto, new SelectList(""), "--- Select ProductName ---", new { @class = "form-control", required = "required" })
+                            </div>
+
+                            <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                            <script>
+                                $(document).ready(function () {
+                                    $("#ID_Categoria").change(function () {
+                                        var c = $(this).val();
+                                        debugger
+                                        $.ajax({
+                                            type: "post",
+                                            url: "/Detalle_Entrada/GetSubcategoriaList?ID_Categoria=" + c,
+                                            contentType: "html",
+                                            success: function (response) {
+                                                debugger
+                                                $("#ID_Subcategoria").empty();
+                                                $("#ID_Subcategoria").append(response);
+                                            }
+                                        })
+                                    })
+                                    $("#ID_Subcategoria").change(function () {
+                                        var o = $(this).val();
+                                        debugger
+                                        $.ajax({
+                                            type: "post",
+                                            url: "/Detalle_Entrada/GetNom_ProductoList?ID_Subcategoria=" + o,
+                                            contentType: "html",
+                                            success: function (response) {
+                                                debugger
+                                                $("#ID_NomProducto").empty();
+                                                $("#ID_NomProducto").append(response);
+                                            }
+                                        })
+                                    })
+                                })
+                            </script>
+                            <div id="datetimepicker">
+                                @Html.Label("Fecha de vencimiento:  ")
+                                @Html.Editor("Ent_FechVencim", new { htmlAttributes = new { @class = "form-control datepicker", Value = DateTime.Now.ToShortDateString(), @type = "date" } })
+                                @Html.ValidationMessageFor(model => model.Ent_FechVencim, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-horizontal" style="float: left">
+                            <div>
+                                @Html.Label("Cantidad/Peso:  ")
+                                @Html.EditorFor(model => model.Ent_Cantidad_Peso, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Ent_Cantidad_Peso, "", new { @class = "text-danger" })
+                            </div>
+                            <div>
+                                @Html.Label("Temperatura:   ")
+                                @Html.EditorFor(model => model.Ent_Temperatura, new { htmlAttributes = new { @class = "form-control", @Value = 0, required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Ent_Temperatura, "", new { @class = "text-danger", })
+                            </div>
+                            <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                            <script type="text/javascript">
+                                //script que inhabilita campos que no se necesitan
+                                $('#Ent_Temperatura').prop('readonly', true);
+
+                                $('#ID_NomProducto').change(function () {
+                                    var c = $(this).val();//saco el id de la lista Nom_Producto
+                                    debugger
+                                    $.ajax({
+                                        type: "post",
+                                        url: "/Detalle_Entrada/consultar_Prop_Adici?id_Producto=" + c, //se llama al metodo para que verifique sin necesita mas informacion adicional
+                                        contentType: "html",
+                                        success: function (result) {
+                                            debugger
+                                            if (result == 'True') { //solo si el metodo me devuelve verdadero significa que debo dejar desactivado el solo lectura
+
+                                                $('#Ent_Temperatura').prop('readonly', false);
+                                            }
+                                            else {//en caso contrario se activara el modo lectura para evitar modificaciones
+
+                                                $('#Ent_Temperatura').prop('readonly', true);
+                                            }
+                                        }
+
+                                    })
+                                });
+
+                            </script>
+
+
+                            <div>
+                                @Html.Label("Factura:   ")
+                                @Html.EditorFor(model => model.Ent_Factura, new { htmlAttributes = new { @class = "form-control", @Value = "NA", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Ent_Factura, "", new { @class = "text-danger" })
+                            </div>
+
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-horizontal" style="float: left">
+
+                            <div>
+                                @Html.Label("Precio Unitario:   ")
+                                @Html.EditorFor(model => model.Ent_Precio_Unitario, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Ent_Precio_Unitario, "", new { @class = "text-danger" })
+                            </div>
+
+
+                            <div>
+                                @Html.Label("Iva %:    ")
+                                @Html.EditorFor(model => model.Ent_iva, new { htmlAttributes = new { @class = "form-control", @Value = 0, required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Ent_iva, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div>
+                                @Html.Label("Descuento %:    ")
+                                @Html.EditorFor(model => model.Ent_Descuento, new { htmlAttributes = new { @class = "form-control", @Value = 0, required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Ent_Descuento, "", new { @class = "text-danger" })
+                            </div>
+
+
+                            <div>
+                                @Html.Label("Precio Total:    ")
+                                @Html.EditorFor(model => model.Ent_Precio_Total, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Ent_Precio_Total, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-horizontal" style="float: left">
+                            <div>
+
+                                @Html.Label("Tipo de Entrada:   ")
+                                @Html.DropDownList("fk_TipoEntrada", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.fk_TipoEntrada, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <div>
+
+                                @Html.Label("Proveedor:  ")
+                                @Html.DropDownList("fk_Proveedor", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.fk_Proveedor, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <div>
+
+                                @Html.Label("Donante:   ")
+                                @Html.DropDownList("fk_Donante", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.fk_Donante, "", new { @class = "text-danger" })
+
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+            <hr />
+            <div class="form-horizontal" style=" float: left; margin-left:10px">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Agregar" class="btn btn-primary" />
+                </div>
+            </div>
+        </section>
+
+    }
+    <asp:UpdatePanel id="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <asp:Panel id="popup" visible="false" runat="server" style="margin:30px">
+            </asp:Panel>
+
+            <asp:AlwaysVisibleControlExtender ID="AlwaysVisibleControlExtender1" TargetControlID="popup" runat="server" />
+            <asp:DragPanelExtender ID="DragPanelExtender1" TargetControlID="popup" runat="server" />
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <button class="btn btn-success" onclick="window.open('Emergente', 'www.google.co.il', 'location=yes,resizable=yes,scrollbars=yes,status=yes');">Terminar</button>
+</div>
+<div>
+    <section style="margin-top: 20px">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.Label("")
+                </th>
+                <th>
+                    @Html.Label("GESTION")
+                </th>
+                <th>
+                    @Html.DisplayName("ID")
+                </th>
+                <th>
+                    @Html.DisplayName("Categoria")
+                </th>
+                <th>
+                    @Html.DisplayName("Subcategoria")
+                </th>
+                <th>
+                    @Html.DisplayName("Producto")
+                </th>
+                <th>
+                    @Html.DisplayName("Cantidad/Peso")
+                </th>
+                <th>
+                    @Html.DisplayName("Temperatura")
+                </th>
+                <th>
+                    @Html.DisplayName("FechVencim")
+                </th>
+                <th>
+                    @Html.DisplayName("Tipo de entrada")
+                </th>
+                <th>
+                    @Html.DisplayName("Proveedor")
+                </th>
+                <th>
+                    @Html.DisplayName("Donante")
+                </th>
+                <th>
+                    @Html.DisplayName("Factura")
+                </th>
+                <th>
+                    @Html.DisplayName("Precio Unitario")
+                </th>
+                <th>
+                    @Html.DisplayName("IVA")
+                </th>
+                <th>
+                    @Html.DisplayName("Descuento")
+                </th>
+                <th>
+                    @Html.DisplayName("Precio Total")
+                </th>
+
+
+
+            </tr>
+
+            @foreach (Inventario_Alimentacion.Models.Temporal item in ViewBag.TemporalList)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Temporal", new { id = item.ID_Det_entr }, new { @class = "img-btn-editar" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "Temporal", new { id = item.ID_Det_entr }, new { @class = "img-btn-borrar" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID_Det_entr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Categoria.Cat_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Subcategoria.Subca_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Nom_Producto.NomProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Cantidad_Peso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Temperatura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_FechVencim)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Entrada.Tipo_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Proveedor.Prov_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Donante.Don_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Factura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Precio_Unitario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_iva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Descuento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ent_Precio_Total)
+                    </td>
+                </tr>
+            }
+        </table>
+    </section>
+
+</div>
+

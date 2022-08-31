@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<link href="~/Content/css_login.css" rel="stylesheet" />
+<div class="row">
+    
+
+    <form action="@Url.Content("~/Accesso/Login")" method="post">
+        <div class="body"></div>
+        <div class="grad"></div>
+        <div class="header">
+            <div>Inventario<span>Alimentación</span></div>
+            
+        </div>
+        <div class="login">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br><div class="danger">
+                @ViewBag.Error
+            </div>
+            <input type="text" placeholder="username" name="User"><br>
+            <input type="password" placeholder="password" name="Pass"><br>
+            <input type="submit" value="Login" class="btn-sm">
+        </div>
+    </form>
+</div>

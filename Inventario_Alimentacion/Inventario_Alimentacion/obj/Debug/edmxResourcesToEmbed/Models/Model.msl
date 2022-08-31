@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BD_InventarioModelStoreContainer" CdmEntityContainer="BD_InventarioEntities">
+    <EntitySetMapping Name="Cargo">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Cargo">
+        <MappingFragment StoreEntitySet="Cargo">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID_Cargo" ColumnName="ID_Cargo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categoria">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Categoria">
+        <MappingFragment StoreEntitySet="Categoria">
+          <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+          <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ciudad">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Ciudad">
+        <MappingFragment StoreEntitySet="Ciudad">
+          <ScalarProperty Name="Ciu_Nombre" ColumnName="Ciu_Nombre" />
+          <ScalarProperty Name="ID_Ciudad" ColumnName="ID_Ciudad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Donante">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Donante">
+        <MappingFragment StoreEntitySet="Donante">
+          <ScalarProperty Name="Don_Nombre" ColumnName="Don_Nombre" />
+          <ScalarProperty Name="ID_Donante" ColumnName="ID_Donante" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleado">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="Emp_Area" ColumnName="Emp_Area" />
+          <ScalarProperty Name="fk_Cargo" ColumnName="fk_Cargo" />
+          <ScalarProperty Name="Emp_Email" ColumnName="Emp_Email" />
+          <ScalarProperty Name="Emp_Celular" ColumnName="Emp_Celular" />
+          <ScalarProperty Name="Emp_Telefono" ColumnName="Emp_Telefono" />
+          <ScalarProperty Name="Emp_Apellido" ColumnName="Emp_Apellido" />
+          <ScalarProperty Name="Emp_Nombre" ColumnName="Emp_Nombre" />
+          <ScalarProperty Name="Emp_Documento" ColumnName="Emp_Documento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Entrada">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Entrada">
+        <MappingFragment StoreEntitySet="Entrada">
+          <ScalarProperty Name="Ent_Total" ColumnName="Ent_Total" />
+          <ScalarProperty Name="Ent_Fecha" ColumnName="Ent_Fecha" />
+          <ScalarProperty Name="fk_Empleado" ColumnName="fk_Empleado" />
+          <ScalarProperty Name="ID_Entrada" ColumnName="ID_Entrada" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="fk_NomProducto" ColumnName="fk_NomProducto" />
+          <ScalarProperty Name="fk_Subcategoria" ColumnName="fk_Subcategoria" />
+          <ScalarProperty Name="fk_Categoria" ColumnName="fk_Categoria" />
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedor">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Proveedor">
+        <MappingFragment StoreEntitySet="Proveedor">
+          <ScalarProperty Name="Prov_ActiEcono" ColumnName="Prov_ActiEcono" />
+          <ScalarProperty Name="Prov_Fax" ColumnName="Prov_Fax" />
+          <ScalarProperty Name="Prov_Direccion" ColumnName="Prov_Direccion" />
+          <ScalarProperty Name="Prov_Email" ColumnName="Prov_Email" />
+          <ScalarProperty Name="Prov_Celular" ColumnName="Prov_Celular" />
+          <ScalarProperty Name="Prov_Telefono" ColumnName="Prov_Telefono" />
+          <ScalarProperty Name="Prov_Nombre" ColumnName="Prov_Nombre" />
+          <ScalarProperty Name="Prov_Docum" ColumnName="Prov_Docum" />
+          <ScalarProperty Name="fk_Ciudad" ColumnName="fk_Ciudad" />
+          <ScalarProperty Name="fk_TipoDocum" ColumnName="fk_TipoDocum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Salida">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Salida">
+        <MappingFragment StoreEntitySet="Salida">
+          <ScalarProperty Name="Sali_Fecha" ColumnName="Sali_Fecha" />
+          <ScalarProperty Name="fk_Empleado" ColumnName="fk_Empleado" />
+          <ScalarProperty Name="ID_Salida" ColumnName="ID_Salida" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subcategoria">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Subcategoria">
+        <MappingFragment StoreEntitySet="Subcategoria">
+          <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="ID_Subcategoria" ColumnName="ID_Subcategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Documento">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Tipo_Documento">
+        <MappingFragment StoreEntitySet="Tipo_Documento">
+          <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
+          <ScalarProperty Name="ID_TipDocum" ColumnName="ID_TipDocum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Entrada">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Tipo_Entrada">
+        <MappingFragment StoreEntitySet="Tipo_Entrada">
+          <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+          <ScalarProperty Name="ID_TipoEntrada" ColumnName="ID_TipoEntrada" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Salida">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Tipo_Salida">
+        <MappingFragment StoreEntitySet="Tipo_Salida">
+          <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+          <ScalarProperty Name="ID_TipoSalida" ColumnName="ID_TipoSalida" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spCrearCategoria" FunctionName="BD_InventarioModel.Store.spCrearCategoria" />
+    <FunctionImportMapping FunctionImportName="spCrearNom_Producto" FunctionName="BD_InventarioModel.Store.spCrearNom_Producto" />
+    <FunctionImportMapping FunctionImportName="spCrearSubcategoria" FunctionName="BD_InventarioModel.Store.spCrearSubcategoria" />
+    <FunctionImportMapping FunctionImportName="spCrearProducto" FunctionName="BD_InventarioModel.Store.spCrearProducto" />
+    <FunctionImportMapping FunctionImportName="spValidaUsuario" FunctionName="BD_InventarioModel.Store.spValidaUsuario" />
+    <FunctionImportMapping FunctionImportName="spLlenarEntrada" FunctionName="BD_InventarioModel.Store.spLlenarEntrada" />
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+          <ScalarProperty Name="Usu_Activo" ColumnName="Usu_Activo" />
+          <ScalarProperty Name="Usu_Contraseña" ColumnName="Usu_Contraseña" />
+          <ScalarProperty Name="Usu_Nombre" ColumnName="Usu_Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spBuscarDetEmpleado_up" FunctionName="BD_InventarioModel.Store.spBuscarDetEmpleado_up">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_InventarioModel.spBuscarDetEmpleado_up_Result">
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+          <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+          <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+          <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+          <ScalarProperty Name="Ent_Cantidad_Peso" ColumnName="Ent_Cantidad_Peso" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spMostrarDeta_Salidas" FunctionName="BD_InventarioModel.Store.spMostrarDeta_Salidas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_InventarioModel.spMostrarDeta_Salidas_Result">
+          <ScalarProperty Name="ID_Det_salid" ColumnName="ID_Det_salid" />
+          <ScalarProperty Name="Sali_Fecha" ColumnName="Sali_Fecha" />
+          <ScalarProperty Name="Emp_Nombre" ColumnName="Emp_Nombre" />
+          <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+          <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+          <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+          <ScalarProperty Name="Sal_Cantidad_Peso" ColumnName="Sal_Cantidad_Peso" />
+          <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+          <ScalarProperty Name="Sal_Observacion" ColumnName="Sal_Observacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Nom_Producto">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Nom_Producto">
+        <MappingFragment StoreEntitySet="Nom_Producto">
+          <ScalarProperty Name="Prop_Adicion" ColumnName="Prop_Adicion" />
+          <ScalarProperty Name="Punto_pedido" ColumnName="Punto_pedido" />
+          <ScalarProperty Name="Min" ColumnName="Min" />
+          <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+          <ScalarProperty Name="Subcategoria" ColumnName="Subcategoria" />
+          <ScalarProperty Name="ID_NomProducto" ColumnName="ID_NomProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spBuscar_ProxVencer" FunctionName="BD_InventarioModel.Store.spBuscar_ProxVencer" />
+    <FunctionImportMapping FunctionImportName="spGuardarExcel" FunctionName="BD_InventarioModel.Store.spGuardarExcel" />
+    <FunctionImportMapping FunctionImportName="spGuardarExcel_Vencidos" FunctionName="BD_InventarioModel.Store.spGuardarExcel_Vencidos" />
+    <FunctionImportMapping FunctionImportName="spGuardarExcel_Det_Ent" FunctionName="BD_InventarioModel.Store.spGuardarExcel_Det_Ent">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_InventarioModel.spGuardarExcel_Det_Ent_Result">
+          <ScalarProperty Name="Ent_Fecha" ColumnName="Ent_Fecha" />
+          <ScalarProperty Name="Emp_Nombre" ColumnName="Emp_Nombre" />
+          <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+          <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+          <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+          <ScalarProperty Name="Ent_Cantidad_Peso" ColumnName="Ent_Cantidad_Peso" />
+          <ScalarProperty Name="Ent_Temperatura" ColumnName="Ent_Temperatura" />
+          <ScalarProperty Name="Ent_FechVencim" ColumnName="Ent_FechVencim" />
+          <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+          <ScalarProperty Name="Prov_Nombre" ColumnName="Prov_Nombre" />
+          <ScalarProperty Name="Don_Nombre" ColumnName="Don_Nombre" />
+          <ScalarProperty Name="Ent_Factura" ColumnName="Ent_Factura" />
+          <ScalarProperty Name="Ent_Precio_Total" ColumnName="Ent_Precio_Total" />
+          <ScalarProperty Name="Ent_Precio_Unitario" ColumnName="Ent_Precio_Unitario" />
+          <ScalarProperty Name="Ent_iva" ColumnName="Ent_iva" />
+          <ScalarProperty Name="Ent_Descuento" ColumnName="Ent_Descuento" />
+          <ScalarProperty Name="Nombre_Unidad" ColumnName="Nombre_Unidad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGuardarExcel_Det_Sal" FunctionName="BD_InventarioModel.Store.spGuardarExcel_Det_Sal">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_InventarioModel.spGuardarExcel_Det_Sal_Result">
+          <ScalarProperty Name="Sali_Fecha" ColumnName="Sali_Fecha" />
+          <ScalarProperty Name="Emp_Nombre" ColumnName="Emp_Nombre" />
+          <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+          <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+          <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+          <ScalarProperty Name="Sal_Cantidad_Peso" ColumnName="Sal_Cantidad_Peso" />
+          <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+          <ScalarProperty Name="Sal_Observacion" ColumnName="Sal_Observacion" />
+          <ScalarProperty Name="Nombre_Unidad" ColumnName="Nombre_Unidad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGuardarExcel_Inventario" FunctionName="BD_InventarioModel.Store.spGuardarExcel_Inventario" />
+    <EntitySetMapping Name="Detalle_Entrada">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Detalle_Entrada">
+        <MappingFragment StoreEntitySet="Detalle_Entrada">
+          <ScalarProperty Name="Dispo_stock" ColumnName="Dispo_stock" />
+          <ScalarProperty Name="Ent_FechVencim" ColumnName="Ent_FechVencim" />
+          <ScalarProperty Name="Ent_Temperatura" ColumnName="Ent_Temperatura" />
+          <ScalarProperty Name="Ent_Descuento" ColumnName="Ent_Descuento" />
+          <ScalarProperty Name="Ent_iva" ColumnName="Ent_iva" />
+          <ScalarProperty Name="Ent_Precio_Total" ColumnName="Ent_Precio_Total" />
+          <ScalarProperty Name="Ent_Precio_Unitario" ColumnName="Ent_Precio_Unitario" />
+          <ScalarProperty Name="Ent_Factura" ColumnName="Ent_Factura" />
+          <ScalarProperty Name="Ent_Cantidad_Peso" ColumnName="Ent_Cantidad_Peso" />
+          <ScalarProperty Name="fk_Producto" ColumnName="fk_Producto" />
+          <ScalarProperty Name="fk_Donante" ColumnName="fk_Donante" />
+          <ScalarProperty Name="fk_Proveedor" ColumnName="fk_Proveedor" />
+          <ScalarProperty Name="fk_TipoEntrada" ColumnName="fk_TipoEntrada" />
+          <ScalarProperty Name="fk_Entrada" ColumnName="fk_Entrada" />
+          <ScalarProperty Name="ID_Det_entr" ColumnName="ID_Det_entr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Detalle_Salida">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Detalle_Salida">
+        <MappingFragment StoreEntitySet="Detalle_Salida">
+          <ScalarProperty Name="Sal_Observacion" ColumnName="Sal_Observacion" />
+          <ScalarProperty Name="Sal_Cantidad_Peso" ColumnName="Sal_Cantidad_Peso" />
+          <ScalarProperty Name="fk_Producto" ColumnName="fk_Producto" />
+          <ScalarProperty Name="fk_TipoSalida" ColumnName="fk_TipoSalida" />
+          <ScalarProperty Name="fk_Salida" ColumnName="fk_Salida" />
+          <ScalarProperty Name="ID_Det_salid" ColumnName="ID_Det_salid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Temporal">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Temporal">
+        <MappingFragment StoreEntitySet="Temporal">
+          <ScalarProperty Name="ID_NomProducto" ColumnName="ID_NomProducto" />
+          <ScalarProperty Name="ID_Subcategoria" ColumnName="ID_Subcategoria" />
+          <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+          <ScalarProperty Name="Ent_FechVencim" ColumnName="Ent_FechVencim" />
+          <ScalarProperty Name="Ent_Temperatura" ColumnName="Ent_Temperatura" />
+          <ScalarProperty Name="Ent_Descuento" ColumnName="Ent_Descuento" />
+          <ScalarProperty Name="Ent_iva" ColumnName="Ent_iva" />
+          <ScalarProperty Name="Ent_Precio_Total" ColumnName="Ent_Precio_Total" />
+          <ScalarProperty Name="Ent_Precio_Unitario" ColumnName="Ent_Precio_Unitario" />
+          <ScalarProperty Name="Ent_Factura" ColumnName="Ent_Factura" />
+          <ScalarProperty Name="Ent_Cantidad_Peso" ColumnName="Ent_Cantidad_Peso" />
+          <ScalarProperty Name="fk_Producto" ColumnName="fk_Producto" />
+          <ScalarProperty Name="fk_Donante" ColumnName="fk_Donante" />
+          <ScalarProperty Name="fk_Proveedor" ColumnName="fk_Proveedor" />
+          <ScalarProperty Name="fk_TipoEntrada" ColumnName="fk_TipoEntrada" />
+          <ScalarProperty Name="fk_Entrada" ColumnName="fk_Entrada" />
+          <ScalarProperty Name="ID_Det_entr" ColumnName="ID_Det_entr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Temporal2">
+      <EntityTypeMapping TypeName="BD_InventarioModel.Temporal2">
+        <MappingFragment StoreEntitySet="Temporal2">
+          <ScalarProperty Name="ID_NomProducto" ColumnName="ID_NomProducto" />
+          <ScalarProperty Name="ID_Subcategoria" ColumnName="ID_Subcategoria" />
+          <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+          <ScalarProperty Name="Sal_Observacion" ColumnName="Sal_Observacion" />
+          <ScalarProperty Name="Sal_Cantidad_Peso" ColumnName="Sal_Cantidad_Peso" />
+          <ScalarProperty Name="fk_Producto" ColumnName="fk_Producto" />
+          <ScalarProperty Name="fk_TipoSalida" ColumnName="fk_TipoSalida" />
+          <ScalarProperty Name="fk_Salida" ColumnName="fk_Salida" />
+          <ScalarProperty Name="ID_Det_salid" ColumnName="ID_Det_salid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spMostrarDeta_Entradas" FunctionName="BD_InventarioModel.Store.spMostrarDeta_Entradas" />
+  </EntityContainerMapping>
+</Mapping>

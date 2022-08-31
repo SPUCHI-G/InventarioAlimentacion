@@ -1,0 +1,172 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.Detalle_Entrada>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <header>
+        <h1 style="text-align: center">
+            <strong class="title">DETALLES DE ENTRADA</strong>
+        </h1>
+        <table class="table" >
+            <tr>
+
+                @using (Html.BeginForm("Index", "Detalle_Entrada", FormMethod.Get))
+                {
+                    <td>
+                        <div>
+                            <h2>
+                                Fecha Inicial: <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" /> @Html.Editor("FechaI", new { htmlAttributes = new { @class = "form-control datepicker", Value = DateTime.Now.ToShortDateString(), @type = "date" } })
+                            </h2>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>
+                                Fecha Final:  <input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" /> @Html.Editor("FechaF", new { htmlAttributes = new { @class = "form-control datepicker", Value = DateTime.Now.ToShortDateString(), @type = "date" } })
+
+                            </h2>
+                        </div>
+                    </td>
+
+                }
+            </tr>
+        </table>
+    </header>
+</div>
+<body>
+    <div>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayName("EDITAR")
+                    </th>
+                    <th>
+                        @Html.DisplayName("ID")
+                    </th>
+                    <th>
+                        @Html.DisplayName("FECHA INGRESO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("EMPLEADO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CATEGORÍA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("SUBCATEGORÍA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("PRODUCTO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CANTIDAD PESO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("TEMPERATURA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("FECHA-VENCIMIENTO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("TIPO DE ENTRADA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("PROVEEDOR")
+                    </th>
+                    <th>
+                        @Html.DisplayName("DONANTE")
+                    </th>
+                    <th>
+                        @Html.DisplayName("FACTURA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("PRECIO UNIDAD")
+                    </th>
+                    <th>
+                        @Html.DisplayName("IVA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("DESCUENTO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("PRECIO TOTAL")
+                    </th>
+                </tr>
+                @foreach (Inventario_Alimentacion.Models.spMostrarDeta_Entradas_Result item in ViewBag.Lista)
+                {
+            <tr>
+                @if (item.Dispo_stock == true)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID_Det_entr }, new { @class = "img-btn-editar" })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.Display("")
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID_Det_entr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emp_Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cat_Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subca_Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomProducto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_Cantidad_Peso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_Temperatura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_FechVencim)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo_Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prov_Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Don_Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_Factura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_Precio_Unitario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_iva)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_Descuento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ent_Precio_Total)
+                </td>
+            </tr>
+                }
+            </table>
+    </div>
+</body>
+
+
+
+

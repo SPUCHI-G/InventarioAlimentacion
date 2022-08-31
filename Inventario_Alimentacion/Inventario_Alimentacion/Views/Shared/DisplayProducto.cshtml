@@ -1,0 +1,11 @@
+﻿@model Inventario_Alimentacion.Models.Nom_Producto
+
+
+<option value="">--- Select ProductName ---</option>
+@if (ViewBag.NomProductoList != null)
+{
+    foreach (var item in ViewBag.NomProductoList)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

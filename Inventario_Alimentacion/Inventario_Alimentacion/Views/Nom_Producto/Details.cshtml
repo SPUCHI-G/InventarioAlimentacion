@@ -1,0 +1,35 @@
+﻿@model Inventario_Alimentacion.Models.Nom_Producto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Nom_Producto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subcategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subcategoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomProducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomProducto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_NomProducto }) |
+    @Html.ActionLink("Back to List", "BusquedaFilter3","Categorias")
+</p>

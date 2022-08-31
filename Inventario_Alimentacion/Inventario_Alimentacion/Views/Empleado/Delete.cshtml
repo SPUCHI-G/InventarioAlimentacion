@@ -1,0 +1,83 @@
+﻿@model Inventario_Alimentacion.Models.Empleado
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Está seguro de eliminar este empleado?</h3>
+<h3>Nota: Si elimina este empleado se eliminara el usuario asociado.</h3>
+<table>
+    <tr>
+        <td>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" /> |
+                    @Html.ActionLink("Back to List", "BusquedaFilter")
+                </div>
+            }
+        </td>
+</table>
+
+<div>
+    <h4>Empleado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Nombre Completo: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Nombre)
+            @Html.DisplayFor(model => model.Emp_Apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Número telefonico:   ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Número de celular:   ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Celular)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("E-mail:  ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cargo:   ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cargo.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Area:    ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp_Area)
+        </dd>
+
+    </dl>
+
+
+</div>

@@ -1,0 +1,42 @@
+﻿@model Inventario_Alimentacion.Models.Categoria
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 style="text-align: center">
+                <strong class="title">EDITAR CATEGORIA</strong>
+            </h1>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                @Html.AntiForgeryToken()
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID_Categoria)
+
+            </div>
+            <div class="col-lg-9">
+                        @Html.Label("Nombre de la Categoria: ", htmlAttributes: new { @class = "control-label" })<br />
+                        @Html.EditorFor(model => model.Cat_Nombre, new { htmlAttributes = new { @class = "form-control", required = "required" } })<br />
+                        @Html.ValidationMessageFor(model => model.Cat_Nombre, "", new { @class = "text-danger" })<br />
+                        <input type="submit" value="MODIFICAR" class="btn btn-success" />
+                        |@Html.ActionLink("Volver a la lista", "BusquedaFilter")
+                    </div>
+        </div>
+    }
+</div>
+
+

@@ -1,0 +1,1703 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BD_InventarioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="ID_Cargo" />
+          </Key>
+          <Property Name="ID_Cargo" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="ID_Categoria" />
+          </Key>
+          <Property Name="ID_Categoria" Type="int" Nullable="false" />
+          <Property Name="Cat_Nombre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="ID_Ciudad" />
+          </Key>
+          <Property Name="ID_Ciudad" Type="int" Nullable="false" />
+          <Property Name="Ciu_Nombre" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Detalle_Entrada">
+          <Key>
+            <PropertyRef Name="ID_Det_entr" />
+          </Key>
+          <Property Name="ID_Det_entr" Type="bigint" Nullable="false" />
+          <Property Name="fk_Entrada" Type="bigint" />
+          <Property Name="fk_TipoEntrada" Type="int" />
+          <Property Name="fk_Proveedor" Type="int" />
+          <Property Name="fk_Donante" Type="int" />
+          <Property Name="fk_Producto" Type="bigint" />
+          <Property Name="Ent_Cantidad_Peso" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Factura" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ent_Precio_Unitario" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Precio_Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_iva" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Descuento" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Temperatura" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_FechVencim" Type="date" />
+          <Property Name="Dispo_stock" Type="bit" />
+        </EntityType>
+        <EntityType Name="Detalle_Salida">
+          <Key>
+            <PropertyRef Name="ID_Det_salid" />
+          </Key>
+          <Property Name="ID_Det_salid" Type="bigint" Nullable="false" />
+          <Property Name="fk_Salida" Type="bigint" Nullable="false" />
+          <Property Name="fk_TipoSalida" Type="int" Nullable="false" />
+          <Property Name="fk_Producto" Type="bigint" Nullable="false" />
+          <Property Name="Sal_Cantidad_Peso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Sal_Observacion" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Donante">
+          <Key>
+            <PropertyRef Name="ID_Donante" />
+          </Key>
+          <Property Name="ID_Donante" Type="int" Nullable="false" />
+          <Property Name="Don_Nombre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Emp_Documento" />
+          </Key>
+          <Property Name="Emp_Documento" Type="int" Nullable="false" />
+          <Property Name="Emp_Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Emp_Apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Emp_Telefono" Type="bigint" Nullable="false" />
+          <Property Name="Emp_Celular" Type="bigint" Nullable="false" />
+          <Property Name="Emp_Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="fk_Cargo" Type="int" Nullable="false" />
+          <Property Name="Emp_Area" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entrada">
+          <Key>
+            <PropertyRef Name="ID_Entrada" />
+          </Key>
+          <Property Name="ID_Entrada" Type="bigint" Nullable="false" />
+          <Property Name="fk_Empleado" Type="int" Nullable="false" />
+          <Property Name="Ent_Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Ent_Total" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Nom_Producto">
+          <Key>
+            <PropertyRef Name="ID_NomProducto" />
+          </Key>
+          <Property Name="ID_NomProducto" Type="int" Nullable="false" />
+          <Property Name="Subcategoria" Type="int" />
+          <Property Name="NomProducto" Type="varchar" MaxLength="50" />
+          <Property Name="Min" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Punto_pedido" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Prop_Adicion" Type="bit" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="ID_Producto" />
+          </Key>
+          <Property Name="ID_Producto" Type="bigint" Nullable="false" />
+          <Property Name="fk_Categoria" Type="int" Nullable="false" />
+          <Property Name="fk_Subcategoria" Type="int" Nullable="false" />
+          <Property Name="fk_NomProducto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="Prov_Docum" />
+          </Key>
+          <Property Name="Prov_Docum" Type="int" Nullable="false" />
+          <Property Name="fk_Ciudad" Type="int" />
+          <Property Name="fk_TipoDocum" Type="int" />
+          <Property Name="Prov_Nombre" Type="nvarchar" MaxLength="10" />
+          <Property Name="Prov_Telefono" Type="int" />
+          <Property Name="Prov_Celular" Type="int" />
+          <Property Name="Prov_Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prov_Direccion" Type="nvarchar" MaxLength="10" />
+          <Property Name="Prov_Fax" Type="nvarchar" MaxLength="10" />
+          <Property Name="Prov_ActiEcono" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Salida">
+          <Key>
+            <PropertyRef Name="ID_Salida" />
+          </Key>
+          <Property Name="ID_Salida" Type="bigint" Nullable="false" />
+          <Property Name="fk_Empleado" Type="int" />
+          <Property Name="Sali_Fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Subcategoria">
+          <Key>
+            <PropertyRef Name="ID_Subcategoria" />
+          </Key>
+          <Property Name="ID_Subcategoria" Type="int" Nullable="false" />
+          <Property Name="Categoria" Type="int" />
+          <Property Name="Subca_Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Temporal">
+          <Key>
+            <PropertyRef Name="ID_Det_entr" />
+          </Key>
+          <Property Name="ID_Det_entr" Type="bigint" Nullable="false" />
+          <Property Name="fk_Entrada" Type="bigint" />
+          <Property Name="fk_TipoEntrada" Type="int" />
+          <Property Name="fk_Proveedor" Type="int" />
+          <Property Name="fk_Donante" Type="int" />
+          <Property Name="fk_Producto" Type="bigint" />
+          <Property Name="Ent_Cantidad_Peso" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Factura" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ent_Precio_Unitario" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Precio_Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_iva" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Descuento" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Temperatura" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_FechVencim" Type="date" />
+          <Property Name="ID_Categoria" Type="int" />
+          <Property Name="ID_Subcategoria" Type="int" />
+          <Property Name="ID_NomProducto" Type="int" />
+        </EntityType>
+        <EntityType Name="Temporal2">
+          <Key>
+            <PropertyRef Name="ID_Det_salid" />
+          </Key>
+          <Property Name="ID_Det_salid" Type="bigint" Nullable="false" />
+          <Property Name="fk_Salida" Type="bigint" />
+          <Property Name="fk_TipoSalida" Type="int" />
+          <Property Name="fk_Producto" Type="bigint" />
+          <Property Name="Sal_Cantidad_Peso" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Sal_Observacion" Type="nvarchar" MaxLength="500" />
+          <Property Name="ID_Categoria" Type="int" />
+          <Property Name="ID_Subcategoria" Type="int" />
+          <Property Name="ID_NomProducto" Type="int" />
+        </EntityType>
+        <EntityType Name="Tipo_Documento">
+          <Key>
+            <PropertyRef Name="ID_TipDocum" />
+          </Key>
+          <Property Name="ID_TipDocum" Type="int" Nullable="false" />
+          <Property Name="TipoDocumento" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tipo_Entrada">
+          <Key>
+            <PropertyRef Name="ID_TipoEntrada" />
+          </Key>
+          <Property Name="ID_TipoEntrada" Type="int" Nullable="false" />
+          <Property Name="Tipo_Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tipo_Salida">
+          <Key>
+            <PropertyRef Name="ID_TipoSalida" />
+          </Key>
+          <Property Name="ID_TipoSalida" Type="int" Nullable="false" />
+          <Property Name="Tipo_Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Usu_Nombre" />
+          </Key>
+          <Property Name="Usu_Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Usu_Contraseña" Type="nvarchar" MaxLength="50" />
+          <Property Name="Usu_Activo" Type="int" />
+          <Property Name="ID_Empleado" Type="int" />
+        </EntityType>
+        <Association Name="FK_Detalle_Salida_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Detalle_Salida" Type="Self.Detalle_Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Detalle_Salida">
+              <PropertyRef Name="fk_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalle_Salida_Salida">
+          <End Role="Salida" Type="Self.Salida" Multiplicity="1" />
+          <End Role="Detalle_Salida" Type="Self.Detalle_Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salida">
+              <PropertyRef Name="ID_Salida" />
+            </Principal>
+            <Dependent Role="Detalle_Salida">
+              <PropertyRef Name="fk_Salida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalle_Salida_Tipo_Salida">
+          <End Role="Tipo_Salida" Type="Self.Tipo_Salida" Multiplicity="1" />
+          <End Role="Detalle_Salida" Type="Self.Detalle_Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Salida">
+              <PropertyRef Name="ID_TipoSalida" />
+            </Principal>
+            <Dependent Role="Detalle_Salida">
+              <PropertyRef Name="fk_TipoSalida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleado_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID_Cargo" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="fk_Cargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entrada_Empleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Entrada" Type="Self.Entrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Emp_Documento" />
+            </Principal>
+            <Dependent Role="Entrada">
+              <PropertyRef Name="fk_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="ID_Categoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="fk_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Nom_Producto">
+          <End Role="Nom_Producto" Type="Self.Nom_Producto" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nom_Producto">
+              <PropertyRef Name="ID_NomProducto" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="fk_NomProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Subcategoria">
+          <End Role="Subcategoria" Type="Self.Subcategoria" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategoria">
+              <PropertyRef Name="ID_Subcategoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="fk_Subcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proveedor_Ciudad">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="0..1" />
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="ID_Ciudad" />
+            </Principal>
+            <Dependent Role="Proveedor">
+              <PropertyRef Name="fk_Ciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proveedor_Tipo_Documento">
+          <End Role="Tipo_Documento" Type="Self.Tipo_Documento" Multiplicity="0..1" />
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Documento">
+              <PropertyRef Name="ID_TipDocum" />
+            </Principal>
+            <Dependent Role="Proveedor">
+              <PropertyRef Name="fk_TipoDocum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salida_Salida">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Salida" Type="Self.Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Emp_Documento" />
+            </Principal>
+            <Dependent Role="Salida">
+              <PropertyRef Name="fk_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Donante">
+          <End Role="Donante" Type="Self.Donante" Multiplicity="0..1" />
+          <End Role="Temporal" Type="Self.Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donante">
+              <PropertyRef Name="ID_Donante" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_Donante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Entrada">
+          <End Role="Entrada" Type="Self.Entrada" Multiplicity="0..1" />
+          <End Role="Temporal" Type="Self.Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entrada">
+              <PropertyRef Name="ID_Entrada" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_Entrada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="Temporal" Type="Self.Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Proveedor">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+          <End Role="Temporal" Type="Self.Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="Prov_Docum" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_Proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Tipo_Entrada">
+          <End Role="Tipo_Entrada" Type="Self.Tipo_Entrada" Multiplicity="0..1" />
+          <End Role="Temporal" Type="Self.Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Entrada">
+              <PropertyRef Name="ID_TipoEntrada" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_TipoEntrada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal2_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="Temporal2" Type="Self.Temporal2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Temporal2">
+              <PropertyRef Name="fk_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal2_Salida">
+          <End Role="Salida" Type="Self.Salida" Multiplicity="0..1" />
+          <End Role="Temporal2" Type="Self.Temporal2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salida">
+              <PropertyRef Name="ID_Salida" />
+            </Principal>
+            <Dependent Role="Temporal2">
+              <PropertyRef Name="fk_Salida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal2_Tipo_Salida">
+          <End Role="Tipo_Salida" Type="Self.Tipo_Salida" Multiplicity="0..1" />
+          <End Role="Temporal2" Type="Self.Temporal2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Salida">
+              <PropertyRef Name="ID_TipoSalida" />
+            </Principal>
+            <Dependent Role="Temporal2">
+              <PropertyRef Name="fk_TipoSalida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Empleado1">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Emp_Documento" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="ID_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spBuscar_ProxVencer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="categoria" Type="nvarchar" Mode="In" />
+          <Parameter Name="subcategoria" Type="nvarchar" Mode="In" />
+          <Parameter Name="producto" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spBuscar_Vencidos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="categoria" Type="nvarchar" Mode="In" />
+          <Parameter Name="subcategoria" Type="nvarchar" Mode="In" />
+          <Parameter Name="producto" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spBuscarDetEmpleado_up" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEmpleado" Type="int" Mode="In" />
+          <Parameter Name="inicio" Type="date" Mode="In" />
+          <Parameter Name="fin" Type="date" Mode="In" />
+        </Function>
+        <Function Name="spConsultar_Inventario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="categoria" Type="nvarchar" Mode="In" />
+          <Parameter Name="subcategoria" Type="nvarchar" Mode="In" />
+          <Parameter Name="producto" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spCrearCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spCrearNom_Producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Sub" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Min" Type="decimal" Mode="In" />
+          <Parameter Name="Punto_pedido" Type="decimal" Mode="In" />
+          <Parameter Name="Prop_Adicion" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spCrearProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idc" Type="int" Mode="In" />
+          <Parameter Name="ids" Type="int" Mode="In" />
+          <Parameter Name="idp" Type="int" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spCrearSubcategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Cat" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGuardarExcel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGuardarExcel_Det_Ent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGuardarExcel_Det_Sal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGuardarExcel_Inventario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGuardarExcel_Vencidos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spLlenarEntrada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usuario" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spMostrarDeta_Entradas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inicio" Type="date" Mode="In" />
+          <Parameter Name="fin" Type="date" Mode="In" />
+        </Function>
+        <Function Name="spMostrarDeta_Salidas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inicio" Type="date" Mode="In" />
+          <Parameter Name="fin" Type="date" Mode="In" />
+        </Function>
+        <Function Name="spValidaUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="usuario" Type="nvarchar" Mode="In" />
+          <Parameter Name="permiso" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="BD_InventarioModelStoreContainer">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detalle_Entrada" EntityType="Self.Detalle_Entrada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detalle_Salida" EntityType="Self.Detalle_Salida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donante" EntityType="Self.Donante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entrada" EntityType="Self.Entrada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nom_Producto" EntityType="Self.Nom_Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salida" EntityType="Self.Salida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subcategoria" EntityType="Self.Subcategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temporal" EntityType="Self.Temporal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temporal2" EntityType="Self.Temporal2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Documento" EntityType="Self.Tipo_Documento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Entrada" EntityType="Self.Tipo_Entrada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Salida" EntityType="Self.Tipo_Salida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Detalle_Salida_Producto" Association="Self.FK_Detalle_Salida_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Detalle_Salida" EntitySet="Detalle_Salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalle_Salida_Salida" Association="Self.FK_Detalle_Salida_Salida">
+            <End Role="Salida" EntitySet="Salida" />
+            <End Role="Detalle_Salida" EntitySet="Detalle_Salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalle_Salida_Tipo_Salida" Association="Self.FK_Detalle_Salida_Tipo_Salida">
+            <End Role="Tipo_Salida" EntitySet="Tipo_Salida" />
+            <End Role="Detalle_Salida" EntitySet="Detalle_Salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleado_Cargo" Association="Self.FK_Empleado_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entrada_Empleado" Association="Self.FK_Entrada_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Entrada" EntitySet="Entrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Nom_Producto" Association="Self.FK_Producto_Nom_Producto">
+            <End Role="Nom_Producto" EntitySet="Nom_Producto" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Subcategoria" Association="Self.FK_Producto_Subcategoria">
+            <End Role="Subcategoria" EntitySet="Subcategoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proveedor_Ciudad" Association="Self.FK_Proveedor_Ciudad">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Proveedor" EntitySet="Proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proveedor_Tipo_Documento" Association="Self.FK_Proveedor_Tipo_Documento">
+            <End Role="Tipo_Documento" EntitySet="Tipo_Documento" />
+            <End Role="Proveedor" EntitySet="Proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salida_Salida" Association="Self.FK_Salida_Salida">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Salida" EntitySet="Salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Donante" Association="Self.FK_Temporal_Donante">
+            <End Role="Donante" EntitySet="Donante" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Entrada" Association="Self.FK_Temporal_Entrada">
+            <End Role="Entrada" EntitySet="Entrada" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Producto" Association="Self.FK_Temporal_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Proveedor" Association="Self.FK_Temporal_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Tipo_Entrada" Association="Self.FK_Temporal_Tipo_Entrada">
+            <End Role="Tipo_Entrada" EntitySet="Tipo_Entrada" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal2_Producto" Association="Self.FK_Temporal2_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Temporal2" EntitySet="Temporal2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal2_Salida" Association="Self.FK_Temporal2_Salida">
+            <End Role="Salida" EntitySet="Salida" />
+            <End Role="Temporal2" EntitySet="Temporal2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal2_Tipo_Salida" Association="Self.FK_Temporal2_Tipo_Salida">
+            <End Role="Tipo_Salida" EntitySet="Tipo_Salida" />
+            <End Role="Temporal2" EntitySet="Temporal2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Empleado1" Association="Self.FK_Usuario_Empleado1">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_InventarioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BD_InventarioEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cargo" EntityType="BD_InventarioModel.Cargo" />
+          <EntitySet Name="Categoria" EntityType="BD_InventarioModel.Categoria" />
+          <EntitySet Name="Ciudad" EntityType="BD_InventarioModel.Ciudad" />
+          <EntitySet Name="Donante" EntityType="BD_InventarioModel.Donante" />
+          <EntitySet Name="Empleado" EntityType="BD_InventarioModel.Empleado" />
+          <EntitySet Name="Entrada" EntityType="BD_InventarioModel.Entrada" />
+          <EntitySet Name="Producto" EntityType="BD_InventarioModel.Producto" />
+          <EntitySet Name="Proveedor" EntityType="BD_InventarioModel.Proveedor" />
+          <EntitySet Name="Salida" EntityType="BD_InventarioModel.Salida" />
+          <EntitySet Name="Subcategoria" EntityType="BD_InventarioModel.Subcategoria" />
+          <EntitySet Name="Tipo_Documento" EntityType="BD_InventarioModel.Tipo_Documento" />
+          <EntitySet Name="Tipo_Entrada" EntityType="BD_InventarioModel.Tipo_Entrada" />
+          <EntitySet Name="Tipo_Salida" EntityType="BD_InventarioModel.Tipo_Salida" />
+          <AssociationSet Name="FK_Empleado_Cargo" Association="BD_InventarioModel.FK_Empleado_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Categoria" Association="BD_InventarioModel.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proveedor_Ciudad" Association="BD_InventarioModel.FK_Proveedor_Ciudad">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Proveedor" EntitySet="Proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entrada_Empleado" Association="BD_InventarioModel.FK_Entrada_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Entrada" EntitySet="Entrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salida_Salida" Association="BD_InventarioModel.FK_Salida_Salida">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Salida" EntitySet="Salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Subcategoria" Association="BD_InventarioModel.FK_Producto_Subcategoria">
+            <End Role="Subcategoria" EntitySet="Subcategoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proveedor_Tipo_Documento" Association="BD_InventarioModel.FK_Proveedor_Tipo_Documento">
+            <End Role="Tipo_Documento" EntitySet="Tipo_Documento" />
+            <End Role="Proveedor" EntitySet="Proveedor" />
+          </AssociationSet>
+          <FunctionImport Name="spCrearCategoria">
+          <Parameter Name="Nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spCrearNom_Producto">
+            <Parameter Name="Id_Sub" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Min" Mode="In" Type="Decimal" />
+            <Parameter Name="Punto_pedido" Mode="In" Type="Decimal" />
+            <Parameter Name="Prop_Adicion" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spCrearSubcategoria">
+            <Parameter Name="Id_Cat" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spCrearProducto">
+            <Parameter Name="idc" Mode="In" Type="Int32" />
+            <Parameter Name="ids" Mode="In" Type="Int32" />
+            <Parameter Name="idp" Mode="In" Type="Int32" />
+            <Parameter Name="Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spValidaUsuario" ReturnType="Collection(String)">
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="permiso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spLlenarEntrada">
+          <Parameter Name="Usuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Usuario" EntityType="BD_InventarioModel.Usuario" />
+          <AssociationSet Name="FK_Usuario_Empleado1" Association="BD_InventarioModel.FK_Usuario_Empleado1">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <FunctionImport Name="spBuscarDetEmpleado_up" ReturnType="Collection(BD_InventarioModel.spBuscarDetEmpleado_up_Result)">
+            <Parameter Name="idEmpleado" Mode="In" Type="Int32" />
+            <Parameter Name="inicio" Mode="In" Type="DateTime" />
+            <Parameter Name="fin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="spMostrarDeta_Salidas" ReturnType="Collection(BD_InventarioModel.spMostrarDeta_Salidas_Result)">
+            <Parameter Name="inicio" Mode="In" Type="DateTime" />
+            <Parameter Name="fin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="Nom_Producto" EntityType="BD_InventarioModel.Nom_Producto" />
+          <AssociationSet Name="FK_Producto_Nom_Producto" Association="BD_InventarioModel.FK_Producto_Nom_Producto">
+            <End Role="Nom_Producto" EntitySet="Nom_Producto" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <FunctionImport Name="spConsultar_Inventario">
+            <Parameter Name="categoria" Mode="In" Type="String" />
+            <Parameter Name="subcategoria" Mode="In" Type="String" />
+            <Parameter Name="producto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spBuscar_Vencidos">
+            <Parameter Name="categoria" Mode="In" Type="String" />
+            <Parameter Name="subcategoria" Mode="In" Type="String" />
+            <Parameter Name="producto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spBuscar_ProxVencer">
+            <Parameter Name="categoria" Mode="In" Type="String" />
+            <Parameter Name="subcategoria" Mode="In" Type="String" />
+            <Parameter Name="producto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGuardarExcel" />
+          <FunctionImport Name="spGuardarExcel_Vencidos" />
+          <FunctionImport Name="spGuardarExcel_Det_Ent" ReturnType="Collection(BD_InventarioModel.spGuardarExcel_Det_Ent_Result)" />
+          <FunctionImport Name="spGuardarExcel_Det_Sal" ReturnType="Collection(BD_InventarioModel.spGuardarExcel_Det_Sal_Result)" />
+          <FunctionImport Name="spGuardarExcel_Inventario" />
+          <EntitySet Name="Detalle_Entrada" EntityType="BD_InventarioModel.Detalle_Entrada" />
+          <EntitySet Name="Detalle_Salida" EntityType="BD_InventarioModel.Detalle_Salida" />
+          <EntitySet Name="Temporal" EntityType="BD_InventarioModel.Temporal" />
+          <EntitySet Name="Temporal2" EntityType="BD_InventarioModel.Temporal2" />
+          <AssociationSet Name="FK_Detalle_Salida_Producto" Association="BD_InventarioModel.FK_Detalle_Salida_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Detalle_Salida" EntitySet="Detalle_Salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalle_Salida_Salida" Association="BD_InventarioModel.FK_Detalle_Salida_Salida">
+            <End Role="Salida" EntitySet="Salida" />
+            <End Role="Detalle_Salida" EntitySet="Detalle_Salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalle_Salida_Tipo_Salida" Association="BD_InventarioModel.FK_Detalle_Salida_Tipo_Salida">
+            <End Role="Tipo_Salida" EntitySet="Tipo_Salida" />
+            <End Role="Detalle_Salida" EntitySet="Detalle_Salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Donante" Association="BD_InventarioModel.FK_Temporal_Donante">
+            <End Role="Donante" EntitySet="Donante" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Entrada" Association="BD_InventarioModel.FK_Temporal_Entrada">
+            <End Role="Entrada" EntitySet="Entrada" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Producto" Association="BD_InventarioModel.FK_Temporal_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal2_Producto" Association="BD_InventarioModel.FK_Temporal2_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Temporal2" EntitySet="Temporal2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Proveedor" Association="BD_InventarioModel.FK_Temporal_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal2_Salida" Association="BD_InventarioModel.FK_Temporal2_Salida">
+            <End Role="Salida" EntitySet="Salida" />
+            <End Role="Temporal2" EntitySet="Temporal2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal_Tipo_Entrada" Association="BD_InventarioModel.FK_Temporal_Tipo_Entrada">
+            <End Role="Tipo_Entrada" EntitySet="Tipo_Entrada" />
+            <End Role="Temporal" EntitySet="Temporal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temporal2_Tipo_Salida" Association="BD_InventarioModel.FK_Temporal2_Tipo_Salida">
+            <End Role="Tipo_Salida" EntitySet="Tipo_Salida" />
+            <End Role="Temporal2" EntitySet="Temporal2" />
+          </AssociationSet>
+          <FunctionImport Name="spMostrarDeta_Entradas">
+            <Parameter Name="inicio" Mode="In" Type="DateTime" />
+            <Parameter Name="fin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          </EntityContainer>
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="ID_Cargo" />
+          </Key>
+          <Property Name="ID_Cargo" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Empleado" Relationship="BD_InventarioModel.FK_Empleado_Cargo" FromRole="Cargo" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="ID_Categoria" />
+          </Key>
+          <Property Name="ID_Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Cat_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Producto" Relationship="BD_InventarioModel.FK_Producto_Categoria" FromRole="Categoria" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="ID_Ciudad" />
+          </Key>
+          <Property Name="ID_Ciudad" Type="Int32" Nullable="false" />
+          <Property Name="Ciu_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Proveedor" Relationship="BD_InventarioModel.FK_Proveedor_Ciudad" FromRole="Ciudad" ToRole="Proveedor" />
+        </EntityType>
+        <EntityType Name="Donante">
+          <Key>
+            <PropertyRef Name="ID_Donante" />
+          </Key>
+          <Property Name="ID_Donante" Type="Int32" Nullable="false" />
+          <Property Name="Don_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Temporal" Relationship="BD_InventarioModel.FK_Temporal_Donante" FromRole="Donante" ToRole="Temporal" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Emp_Documento" />
+          </Key>
+          <Property Name="Emp_Documento" Type="Int32" Nullable="false" />
+          <Property Name="Emp_Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_Apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_Telefono" Type="Int64" Nullable="false" />
+          <Property Name="Emp_Celular" Type="Int64" Nullable="false" />
+          <Property Name="Emp_Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fk_Cargo" Type="Int32" Nullable="false" />
+          <Property Name="Emp_Area" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cargo" Relationship="BD_InventarioModel.FK_Empleado_Cargo" FromRole="Empleado" ToRole="Cargo" />
+          <NavigationProperty Name="Entrada" Relationship="BD_InventarioModel.FK_Entrada_Empleado" FromRole="Empleado" ToRole="Entrada" />
+          <NavigationProperty Name="Salida" Relationship="BD_InventarioModel.FK_Salida_Salida" FromRole="Empleado" ToRole="Salida" />
+          <NavigationProperty Name="Usuario" Relationship="BD_InventarioModel.FK_Usuario_Empleado1" FromRole="Empleado" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Entrada">
+          <Key>
+            <PropertyRef Name="ID_Entrada" />
+          </Key>
+          <Property Name="ID_Entrada" Type="Int64" Nullable="false" />
+          <Property Name="fk_Empleado" Type="Int32" Nullable="false" />
+          <Property Name="Ent_Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Ent_Total" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Empleado" Relationship="BD_InventarioModel.FK_Entrada_Empleado" FromRole="Entrada" ToRole="Empleado" />
+          <NavigationProperty Name="Temporal" Relationship="BD_InventarioModel.FK_Temporal_Entrada" FromRole="Entrada" ToRole="Temporal" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="ID_Producto" />
+          </Key>
+          <Property Name="ID_Producto" Type="Int64" Nullable="false" />
+          <Property Name="fk_Categoria" Type="Int32" Nullable="false" />
+          <Property Name="fk_Subcategoria" Type="Int32" Nullable="false" />
+          <Property Name="fk_NomProducto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="BD_InventarioModel.FK_Producto_Categoria" FromRole="Producto" ToRole="Categoria" />
+          <NavigationProperty Name="Subcategoria" Relationship="BD_InventarioModel.FK_Producto_Subcategoria" FromRole="Producto" ToRole="Subcategoria" />
+          <NavigationProperty Name="Nom_Producto" Relationship="BD_InventarioModel.FK_Producto_Nom_Producto" FromRole="Producto" ToRole="Nom_Producto" />
+          <NavigationProperty Name="Detalle_Salida" Relationship="BD_InventarioModel.FK_Detalle_Salida_Producto" FromRole="Producto" ToRole="Detalle_Salida" />
+          <NavigationProperty Name="Temporal" Relationship="BD_InventarioModel.FK_Temporal_Producto" FromRole="Producto" ToRole="Temporal" />
+          <NavigationProperty Name="Temporal2" Relationship="BD_InventarioModel.FK_Temporal2_Producto" FromRole="Producto" ToRole="Temporal2" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="Prov_Docum" />
+          </Key>
+          <Property Name="fk_TipoDocum" Type="Int32" />
+          <Property Name="fk_Ciudad" Type="Int32" />
+          <Property Name="Prov_Docum" Type="Int32" Nullable="false" />
+          <Property Name="Prov_Nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Prov_Telefono" Type="Int32" />
+          <Property Name="Prov_Celular" Type="Int32" />
+          <Property Name="Prov_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prov_Direccion" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Prov_Fax" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Prov_ActiEcono" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ciudad" Relationship="BD_InventarioModel.FK_Proveedor_Ciudad" FromRole="Proveedor" ToRole="Ciudad" />
+          <NavigationProperty Name="Tipo_Documento" Relationship="BD_InventarioModel.FK_Proveedor_Tipo_Documento" FromRole="Proveedor" ToRole="Tipo_Documento" />
+          <NavigationProperty Name="Temporal" Relationship="BD_InventarioModel.FK_Temporal_Proveedor" FromRole="Proveedor" ToRole="Temporal" />
+        </EntityType>
+        <EntityType Name="Salida">
+          <Key>
+            <PropertyRef Name="ID_Salida" />
+          </Key>
+          <Property Name="ID_Salida" Type="Int64" Nullable="false" />
+          <Property Name="fk_Empleado" Type="Int32" />
+          <Property Name="Sali_Fecha" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empleado" Relationship="BD_InventarioModel.FK_Salida_Salida" FromRole="Salida" ToRole="Empleado" />
+          <NavigationProperty Name="Detalle_Salida" Relationship="BD_InventarioModel.FK_Detalle_Salida_Salida" FromRole="Salida" ToRole="Detalle_Salida" />
+          <NavigationProperty Name="Temporal2" Relationship="BD_InventarioModel.FK_Temporal2_Salida" FromRole="Salida" ToRole="Temporal2" />
+        </EntityType>
+        <EntityType Name="Subcategoria">
+          <Key>
+            <PropertyRef Name="ID_Subcategoria" />
+          </Key>
+          <Property Name="ID_Subcategoria" Type="Int32" Nullable="false" />
+          <Property Name="Categoria" Type="Int32" />
+          <Property Name="Subca_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producto" Relationship="BD_InventarioModel.FK_Producto_Subcategoria" FromRole="Subcategoria" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Tipo_Documento">
+          <Key>
+            <PropertyRef Name="ID_TipDocum" />
+          </Key>
+          <Property Name="ID_TipDocum" Type="Int32" Nullable="false" />
+          <Property Name="TipoDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Proveedor" Relationship="BD_InventarioModel.FK_Proveedor_Tipo_Documento" FromRole="Tipo_Documento" ToRole="Proveedor" />
+        </EntityType>
+        <EntityType Name="Tipo_Entrada">
+          <Key>
+            <PropertyRef Name="ID_TipoEntrada" />
+          </Key>
+          <Property Name="ID_TipoEntrada" Type="Int32" Nullable="false" />
+          <Property Name="Tipo_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Temporal" Relationship="BD_InventarioModel.FK_Temporal_Tipo_Entrada" FromRole="Tipo_Entrada" ToRole="Temporal" />
+        </EntityType>
+        <EntityType Name="Tipo_Salida">
+          <Key>
+            <PropertyRef Name="ID_TipoSalida" />
+          </Key>
+          <Property Name="ID_TipoSalida" Type="Int32" Nullable="false" />
+          <Property Name="Tipo_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Detalle_Salida" Relationship="BD_InventarioModel.FK_Detalle_Salida_Tipo_Salida" FromRole="Tipo_Salida" ToRole="Detalle_Salida" />
+          <NavigationProperty Name="Temporal2" Relationship="BD_InventarioModel.FK_Temporal2_Tipo_Salida" FromRole="Tipo_Salida" ToRole="Temporal2" />
+        </EntityType>
+        <Association Name="FK_Empleado_Cargo">
+          <End Type="BD_InventarioModel.Cargo" Role="Cargo" Multiplicity="1" />
+          <End Type="BD_InventarioModel.Empleado" Role="Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID_Cargo" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="fk_Cargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Categoria">
+          <End Type="BD_InventarioModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="BD_InventarioModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="ID_Categoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="fk_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proveedor_Ciudad">
+          <End Type="BD_InventarioModel.Ciudad" Role="Ciudad" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Proveedor" Role="Proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="ID_Ciudad" />
+            </Principal>
+            <Dependent Role="Proveedor">
+              <PropertyRef Name="fk_Ciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entrada_Empleado">
+          <End Type="BD_InventarioModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="BD_InventarioModel.Entrada" Role="Entrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Emp_Documento" />
+            </Principal>
+            <Dependent Role="Entrada">
+              <PropertyRef Name="fk_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salida_Salida">
+          <End Type="BD_InventarioModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Salida" Role="Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Emp_Documento" />
+            </Principal>
+            <Dependent Role="Salida">
+              <PropertyRef Name="fk_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Subcategoria">
+          <End Type="BD_InventarioModel.Subcategoria" Role="Subcategoria" Multiplicity="1" />
+          <End Type="BD_InventarioModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategoria">
+              <PropertyRef Name="ID_Subcategoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="fk_Subcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proveedor_Tipo_Documento">
+          <End Type="BD_InventarioModel.Tipo_Documento" Role="Tipo_Documento" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Proveedor" Role="Proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Documento">
+              <PropertyRef Name="ID_TipDocum" />
+            </Principal>
+            <Dependent Role="Proveedor">
+              <PropertyRef Name="fk_TipoDocum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spValidaUsuario_Result">
+          <Property Type="String" Name="Usu_Nombre" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spBuscar_Vencidos_Result">
+          <Property Type="String" Name="Cat_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomProducto" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Ent_Precio_Unitario" Nullable="true" />
+          <Property Type="Decimal" Name="Ent_Cantidad_Peso" Nullable="true" />
+          <Property Type="DateTime" Name="Ent_FechVencim" Nullable="true" />
+          <Property Type="Decimal" Name="Ent_Precio_Total" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Usu_Nombre" />
+          </Key>
+          <Property Name="Usu_Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Usu_Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Usu_Activo" Type="Int32" />
+          <Property Name="ID_Empleado" Type="Int32" />
+          <NavigationProperty Name="Empleado" Relationship="BD_InventarioModel.FK_Usuario_Empleado1" FromRole="Usuario" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="FK_Usuario_Empleado1">
+          <End Type="BD_InventarioModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Emp_Documento" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="ID_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spBuscarDetEmpleado_up_Result">
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="Cat_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomProducto" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Tipo_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Ent_Cantidad_Peso" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="Tipo" Nullable="false" MaxLength="7" />
+          <Property Type="DateTime" Name="fecha" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spMostrarDeta_Entradas_Result">
+          <Property Type="Int64" Name="ID_Det_entr" Nullable="false" />
+          <Property Type="DateTime" Name="Ent_Fecha" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Emp_Nombre" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="Cat_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomProducto" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Ent_Cantidad_Peso" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Ent_Temperatura" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="Ent_FechVencim" Nullable="true" />
+          <Property Type="String" Name="Tipo_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Prov_Nombre" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Don_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Ent_Factura" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Ent_Precio_Total" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Ent_Precio_Unitario" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Ent_iva" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Ent_Descuento" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="Dispo_stock" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spMostrarDeta_Salidas_Result">
+          <Property Type="Int64" Name="ID_Det_salid" Nullable="false" />
+          <Property Type="DateTime" Name="Sali_Fecha" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Emp_Nombre" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="Cat_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomProducto" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Sal_Cantidad_Peso" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Tipo_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Sal_Observacion" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="spConsultar_Inventario_Result" >
+          <Property Type="String" Name="Cat_Nombre" Nullable="false" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="false" />
+          <Property Type="String" Name="NomProducto" Nullable="false" />
+          <Property Type="Decimal" Name="Saldo" Nullable="false" />
+          <Property Type="Decimal" Name="Ent_Precio_Total" Nullable="false" />
+          <Property Type="Decimal" Name="Min" Nullable="false" />
+          <Property Type="Decimal" Name="Punto_pedido" Nullable="false" />
+          <Property Type="Decimal" Name="Ent_Precio_Unitario" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Nom_Producto">
+          <Key>
+            <PropertyRef Name="ID_NomProducto" />
+          </Key>
+          <Property Name="ID_NomProducto" Type="Int32" Nullable="false" />
+          <Property Name="Subcategoria" Type="Int32" />
+          <Property Name="NomProducto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Min" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Punto_pedido" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Prop_Adicion" Type="Boolean" />
+          <NavigationProperty Name="Producto" Relationship="BD_InventarioModel.FK_Producto_Nom_Producto" FromRole="Nom_Producto" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Producto_Nom_Producto">
+          <End Type="BD_InventarioModel.Nom_Producto" Role="Nom_Producto" Multiplicity="1" />
+          <End Type="BD_InventarioModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nom_Producto">
+              <PropertyRef Name="ID_NomProducto" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="fk_NomProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spBuscar_ProxVencer_Result">
+          <Property Type="String" Name="Cat_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomProducto" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Ent_Precio_Unitario" Nullable="true" />
+          <Property Type="Decimal" Name="Ent_Cantidad_Peso" Nullable="true" />
+          <Property Type="DateTime" Name="Ent_FechVencim" Nullable="true" />
+          <Property Type="Decimal" Name="Ent_Precio_Total" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGuardarExcel_Result">
+          <Property Type="String" Name="Cat_Nombre" Nullable="false" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="false" />
+          <Property Type="String" Name="NomProducto" Nullable="false" />
+          <Property Type="Decimal" Name="Saldo" Nullable="false" />
+          <Property Type="Decimal" Name="Ent_Precio_Total" Nullable="false" />
+          <Property Type="Decimal" Name="Min" Nullable="false" />
+          <Property Type="Decimal" Name="Punto_pedido" Nullable="false" />
+          <Property Type="Decimal" Name="Ent_Precio_Unitario" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGuardarExcel_Vencidos_Result">
+          <Property Type="String" Name="Cat_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomProducto" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Ent_Precio_Unitario" Nullable="true" />
+          <Property Type="Decimal" Name="Ent_Cantidad_Peso" Nullable="true" />
+          <Property Type="DateTime" Name="Ent_FechVencim" Nullable="true" />
+          <Property Type="Decimal" Name="Ent_Precio_Total" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGuardarExcel_Det_Ent_Result">
+          <Property Type="DateTime" Name="Ent_Fecha" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Emp_Nombre" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="Cat_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomProducto" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Ent_Cantidad_Peso" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Ent_Temperatura" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="Ent_FechVencim" Nullable="true" />
+          <Property Type="String" Name="Tipo_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Prov_Nombre" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Don_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Ent_Factura" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Ent_Precio_Total" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Ent_Precio_Unitario" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Ent_iva" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Ent_Descuento" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="Nombre_Unidad" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGuardarExcel_Det_Sal_Result">
+          <Property Type="DateTime" Name="Sali_Fecha" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Emp_Nombre" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="Cat_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomProducto" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Sal_Cantidad_Peso" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Tipo_Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Sal_Observacion" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Nombre_Unidad" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGuardarExcel_Inventario_Result" >
+          <Property Type="String" Name="Cat_Nombre" Nullable="false" />
+          <Property Type="String" Name="Subca_Nombre" Nullable="false" />
+          <Property Type="String" Name="NomProducto" Nullable="false" />
+          <Property Type="Decimal" Name="can_ent" Nullable="false" />
+          <Property Type="Decimal" Name="can_sali" Nullable="false" />
+          <Property Type="Decimal" Name="Saldo" Nullable="false" />
+          <Property Type="Decimal" Name="valor_total" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Detalle_Entrada">
+          <Key>
+            <PropertyRef Name="ID_Det_entr" />
+          </Key>
+          <Property Name="ID_Det_entr" Type="Int64" Nullable="false" />
+          <Property Name="fk_Entrada" Type="Int64" />
+          <Property Name="fk_TipoEntrada" Type="Int32" />
+          <Property Name="fk_Proveedor" Type="Int32" />
+          <Property Name="fk_Donante" Type="Int32" />
+          <Property Name="fk_Producto" Type="Int64" />
+          <Property Name="Ent_Cantidad_Peso" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Factura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ent_Precio_Unitario" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Precio_Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_iva" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Descuento" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Temperatura" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_FechVencim" Type="DateTime" Precision="0" />
+          <Property Name="Dispo_stock" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Detalle_Salida">
+          <Key>
+            <PropertyRef Name="ID_Det_salid" />
+          </Key>
+          <Property Name="ID_Det_salid" Type="Int64" Nullable="false" />
+          <Property Name="fk_Salida" Type="Int64" Nullable="false" />
+          <Property Name="fk_TipoSalida" Type="Int32" Nullable="false" />
+          <Property Name="fk_Producto" Type="Int64" Nullable="false" />
+          <Property Name="Sal_Cantidad_Peso" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Sal_Observacion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Producto" Relationship="BD_InventarioModel.FK_Detalle_Salida_Producto" FromRole="Detalle_Salida" ToRole="Producto" />
+          <NavigationProperty Name="Salida" Relationship="BD_InventarioModel.FK_Detalle_Salida_Salida" FromRole="Detalle_Salida" ToRole="Salida" />
+          <NavigationProperty Name="Tipo_Salida" Relationship="BD_InventarioModel.FK_Detalle_Salida_Tipo_Salida" FromRole="Detalle_Salida" ToRole="Tipo_Salida" />
+        </EntityType>
+        <EntityType Name="Temporal">
+          <Key>
+            <PropertyRef Name="ID_Det_entr" />
+          </Key>
+          <Property Name="ID_Det_entr" Type="Int64" Nullable="false" />
+          <Property Name="fk_Entrada" Type="Int64" />
+          <Property Name="fk_TipoEntrada" Type="Int32" />
+          <Property Name="fk_Proveedor" Type="Int32" />
+          <Property Name="fk_Donante" Type="Int32" />
+          <Property Name="fk_Producto" Type="Int64" />
+          <Property Name="Ent_Cantidad_Peso" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Factura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ent_Precio_Unitario" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Precio_Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_iva" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Descuento" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_Temperatura" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ent_FechVencim" Type="DateTime" Precision="0" />
+          <Property Name="ID_Categoria" Type="Int32" />
+          <Property Name="ID_Subcategoria" Type="Int32" />
+          <Property Name="ID_NomProducto" Type="Int32" />
+          <NavigationProperty Name="Donante" Relationship="BD_InventarioModel.FK_Temporal_Donante" FromRole="Temporal" ToRole="Donante" />
+          <NavigationProperty Name="Entrada" Relationship="BD_InventarioModel.FK_Temporal_Entrada" FromRole="Temporal" ToRole="Entrada" />
+          <NavigationProperty Name="Producto" Relationship="BD_InventarioModel.FK_Temporal_Producto" FromRole="Temporal" ToRole="Producto" />
+          <NavigationProperty Name="Proveedor" Relationship="BD_InventarioModel.FK_Temporal_Proveedor" FromRole="Temporal" ToRole="Proveedor" />
+          <NavigationProperty Name="Tipo_Entrada" Relationship="BD_InventarioModel.FK_Temporal_Tipo_Entrada" FromRole="Temporal" ToRole="Tipo_Entrada" />
+        </EntityType>
+        <EntityType Name="Temporal2">
+          <Key>
+            <PropertyRef Name="ID_Det_salid" />
+          </Key>
+          <Property Name="ID_Det_salid" Type="Int64" Nullable="false" />
+          <Property Name="fk_Salida" Type="Int64" />
+          <Property Name="fk_TipoSalida" Type="Int32" />
+          <Property Name="fk_Producto" Type="Int64" />
+          <Property Name="Sal_Cantidad_Peso" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Sal_Observacion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Categoria" Type="Int32" />
+          <Property Name="ID_Subcategoria" Type="Int32" />
+          <Property Name="ID_NomProducto" Type="Int32" />
+          <NavigationProperty Name="Producto" Relationship="BD_InventarioModel.FK_Temporal2_Producto" FromRole="Temporal2" ToRole="Producto" />
+          <NavigationProperty Name="Salida" Relationship="BD_InventarioModel.FK_Temporal2_Salida" FromRole="Temporal2" ToRole="Salida" />
+          <NavigationProperty Name="Tipo_Salida" Relationship="BD_InventarioModel.FK_Temporal2_Tipo_Salida" FromRole="Temporal2" ToRole="Tipo_Salida" />
+        </EntityType>
+        <Association Name="FK_Detalle_Salida_Producto">
+          <End Type="BD_InventarioModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="BD_InventarioModel.Detalle_Salida" Role="Detalle_Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Detalle_Salida">
+              <PropertyRef Name="fk_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalle_Salida_Salida">
+          <End Type="BD_InventarioModel.Salida" Role="Salida" Multiplicity="1" />
+          <End Type="BD_InventarioModel.Detalle_Salida" Role="Detalle_Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salida">
+              <PropertyRef Name="ID_Salida" />
+            </Principal>
+            <Dependent Role="Detalle_Salida">
+              <PropertyRef Name="fk_Salida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalle_Salida_Tipo_Salida">
+          <End Type="BD_InventarioModel.Tipo_Salida" Role="Tipo_Salida" Multiplicity="1" />
+          <End Type="BD_InventarioModel.Detalle_Salida" Role="Detalle_Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Salida">
+              <PropertyRef Name="ID_TipoSalida" />
+            </Principal>
+            <Dependent Role="Detalle_Salida">
+              <PropertyRef Name="fk_TipoSalida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Donante">
+          <End Type="BD_InventarioModel.Donante" Role="Donante" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Temporal" Role="Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donante">
+              <PropertyRef Name="ID_Donante" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_Donante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Entrada">
+          <End Type="BD_InventarioModel.Entrada" Role="Entrada" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Temporal" Role="Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entrada">
+              <PropertyRef Name="ID_Entrada" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_Entrada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Producto">
+          <End Type="BD_InventarioModel.Producto" Role="Producto" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Temporal" Role="Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal2_Producto">
+          <End Type="BD_InventarioModel.Producto" Role="Producto" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Temporal2" Role="Temporal2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Temporal2">
+              <PropertyRef Name="fk_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Proveedor">
+          <End Type="BD_InventarioModel.Proveedor" Role="Proveedor" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Temporal" Role="Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="Prov_Docum" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_Proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal2_Salida">
+          <End Type="BD_InventarioModel.Salida" Role="Salida" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Temporal2" Role="Temporal2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salida">
+              <PropertyRef Name="ID_Salida" />
+            </Principal>
+            <Dependent Role="Temporal2">
+              <PropertyRef Name="fk_Salida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal_Tipo_Entrada">
+          <End Type="BD_InventarioModel.Tipo_Entrada" Role="Tipo_Entrada" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Temporal" Role="Temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Entrada">
+              <PropertyRef Name="ID_TipoEntrada" />
+            </Principal>
+            <Dependent Role="Temporal">
+              <PropertyRef Name="fk_TipoEntrada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temporal2_Tipo_Salida">
+          <End Type="BD_InventarioModel.Tipo_Salida" Role="Tipo_Salida" Multiplicity="0..1" />
+          <End Type="BD_InventarioModel.Temporal2" Role="Temporal2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Salida">
+              <PropertyRef Name="ID_TipoSalida" />
+            </Principal>
+            <Dependent Role="Temporal2">
+              <PropertyRef Name="fk_TipoSalida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_InventarioModelStoreContainer" CdmEntityContainer="BD_InventarioEntities">
+          <EntitySetMapping Name="Cargo">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_Cargo" ColumnName="ID_Cargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ciudad">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Ciudad">
+              <MappingFragment StoreEntitySet="Ciudad">
+                <ScalarProperty Name="Ciu_Nombre" ColumnName="Ciu_Nombre" />
+                <ScalarProperty Name="ID_Ciudad" ColumnName="ID_Ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donante">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Donante">
+              <MappingFragment StoreEntitySet="Donante">
+                <ScalarProperty Name="Don_Nombre" ColumnName="Don_Nombre" />
+                <ScalarProperty Name="ID_Donante" ColumnName="ID_Donante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="Emp_Area" ColumnName="Emp_Area" />
+                <ScalarProperty Name="fk_Cargo" ColumnName="fk_Cargo" />
+                <ScalarProperty Name="Emp_Email" ColumnName="Emp_Email" />
+                <ScalarProperty Name="Emp_Celular" ColumnName="Emp_Celular" />
+                <ScalarProperty Name="Emp_Telefono" ColumnName="Emp_Telefono" />
+                <ScalarProperty Name="Emp_Apellido" ColumnName="Emp_Apellido" />
+                <ScalarProperty Name="Emp_Nombre" ColumnName="Emp_Nombre" />
+                <ScalarProperty Name="Emp_Documento" ColumnName="Emp_Documento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entrada">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Entrada">
+              <MappingFragment StoreEntitySet="Entrada">
+                <ScalarProperty Name="Ent_Total" ColumnName="Ent_Total" />
+                <ScalarProperty Name="Ent_Fecha" ColumnName="Ent_Fecha" />
+                <ScalarProperty Name="fk_Empleado" ColumnName="fk_Empleado" />
+                <ScalarProperty Name="ID_Entrada" ColumnName="ID_Entrada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="fk_NomProducto" ColumnName="fk_NomProducto" />
+                <ScalarProperty Name="fk_Subcategoria" ColumnName="fk_Subcategoria" />
+                <ScalarProperty Name="fk_Categoria" ColumnName="fk_Categoria" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedor">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Proveedor">
+              <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="Prov_ActiEcono" ColumnName="Prov_ActiEcono" />
+                <ScalarProperty Name="Prov_Fax" ColumnName="Prov_Fax" />
+                <ScalarProperty Name="Prov_Direccion" ColumnName="Prov_Direccion" />
+                <ScalarProperty Name="Prov_Email" ColumnName="Prov_Email" />
+                <ScalarProperty Name="Prov_Celular" ColumnName="Prov_Celular" />
+                <ScalarProperty Name="Prov_Telefono" ColumnName="Prov_Telefono" />
+                <ScalarProperty Name="Prov_Nombre" ColumnName="Prov_Nombre" />
+                <ScalarProperty Name="Prov_Docum" ColumnName="Prov_Docum" />
+                <ScalarProperty Name="fk_Ciudad" ColumnName="fk_Ciudad" />
+                <ScalarProperty Name="fk_TipoDocum" ColumnName="fk_TipoDocum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salida">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Salida">
+              <MappingFragment StoreEntitySet="Salida">
+                <ScalarProperty Name="Sali_Fecha" ColumnName="Sali_Fecha" />
+                <ScalarProperty Name="fk_Empleado" ColumnName="fk_Empleado" />
+                <ScalarProperty Name="ID_Salida" ColumnName="ID_Salida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subcategoria">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Subcategoria">
+              <MappingFragment StoreEntitySet="Subcategoria">
+                <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="ID_Subcategoria" ColumnName="ID_Subcategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Documento">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Tipo_Documento">
+              <MappingFragment StoreEntitySet="Tipo_Documento">
+                <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
+                <ScalarProperty Name="ID_TipDocum" ColumnName="ID_TipDocum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Entrada">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Tipo_Entrada">
+              <MappingFragment StoreEntitySet="Tipo_Entrada">
+                <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+                <ScalarProperty Name="ID_TipoEntrada" ColumnName="ID_TipoEntrada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Salida">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Tipo_Salida">
+              <MappingFragment StoreEntitySet="Tipo_Salida">
+                <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+                <ScalarProperty Name="ID_TipoSalida" ColumnName="ID_TipoSalida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spCrearCategoria" FunctionName="BD_InventarioModel.Store.spCrearCategoria" />
+          <FunctionImportMapping FunctionImportName="spCrearNom_Producto" FunctionName="BD_InventarioModel.Store.spCrearNom_Producto" />
+          <FunctionImportMapping FunctionImportName="spCrearSubcategoria" FunctionName="BD_InventarioModel.Store.spCrearSubcategoria" />
+          <FunctionImportMapping FunctionImportName="spCrearProducto" FunctionName="BD_InventarioModel.Store.spCrearProducto" />
+          <FunctionImportMapping FunctionImportName="spValidaUsuario" FunctionName="BD_InventarioModel.Store.spValidaUsuario" />
+          <FunctionImportMapping FunctionImportName="spLlenarEntrada" FunctionName="BD_InventarioModel.Store.spLlenarEntrada" />
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+                <ScalarProperty Name="Usu_Activo" ColumnName="Usu_Activo" />
+                <ScalarProperty Name="Usu_Contraseña" ColumnName="Usu_Contraseña" />
+                <ScalarProperty Name="Usu_Nombre" ColumnName="Usu_Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spBuscarDetEmpleado_up" FunctionName="BD_InventarioModel.Store.spBuscarDetEmpleado_up">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_InventarioModel.spBuscarDetEmpleado_up_Result">
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+                <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+                <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+                <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+                <ScalarProperty Name="Ent_Cantidad_Peso" ColumnName="Ent_Cantidad_Peso" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMostrarDeta_Salidas" FunctionName="BD_InventarioModel.Store.spMostrarDeta_Salidas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_InventarioModel.spMostrarDeta_Salidas_Result">
+                <ScalarProperty Name="ID_Det_salid" ColumnName="ID_Det_salid" />
+                <ScalarProperty Name="Sali_Fecha" ColumnName="Sali_Fecha" />
+                <ScalarProperty Name="Emp_Nombre" ColumnName="Emp_Nombre" />
+                <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+                <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+                <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+                <ScalarProperty Name="Sal_Cantidad_Peso" ColumnName="Sal_Cantidad_Peso" />
+                <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+                <ScalarProperty Name="Sal_Observacion" ColumnName="Sal_Observacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Nom_Producto">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Nom_Producto">
+              <MappingFragment StoreEntitySet="Nom_Producto">
+                <ScalarProperty Name="Prop_Adicion" ColumnName="Prop_Adicion" />
+                <ScalarProperty Name="Punto_pedido" ColumnName="Punto_pedido" />
+                <ScalarProperty Name="Min" ColumnName="Min" />
+                <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+                <ScalarProperty Name="Subcategoria" ColumnName="Subcategoria" />
+                <ScalarProperty Name="ID_NomProducto" ColumnName="ID_NomProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spBuscar_ProxVencer" FunctionName="BD_InventarioModel.Store.spBuscar_ProxVencer" />
+          <FunctionImportMapping FunctionImportName="spGuardarExcel" FunctionName="BD_InventarioModel.Store.spGuardarExcel" />
+          <FunctionImportMapping FunctionImportName="spGuardarExcel_Vencidos" FunctionName="BD_InventarioModel.Store.spGuardarExcel_Vencidos" />
+          <FunctionImportMapping FunctionImportName="spGuardarExcel_Det_Ent" FunctionName="BD_InventarioModel.Store.spGuardarExcel_Det_Ent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_InventarioModel.spGuardarExcel_Det_Ent_Result">
+                <ScalarProperty Name="Ent_Fecha" ColumnName="Ent_Fecha" />
+                <ScalarProperty Name="Emp_Nombre" ColumnName="Emp_Nombre" />
+                <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+                <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+                <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+                <ScalarProperty Name="Ent_Cantidad_Peso" ColumnName="Ent_Cantidad_Peso" />
+                <ScalarProperty Name="Ent_Temperatura" ColumnName="Ent_Temperatura" />
+                <ScalarProperty Name="Ent_FechVencim" ColumnName="Ent_FechVencim" />
+                <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+                <ScalarProperty Name="Prov_Nombre" ColumnName="Prov_Nombre" />
+                <ScalarProperty Name="Don_Nombre" ColumnName="Don_Nombre" />
+                <ScalarProperty Name="Ent_Factura" ColumnName="Ent_Factura" />
+                <ScalarProperty Name="Ent_Precio_Total" ColumnName="Ent_Precio_Total" />
+                <ScalarProperty Name="Ent_Precio_Unitario" ColumnName="Ent_Precio_Unitario" />
+                <ScalarProperty Name="Ent_iva" ColumnName="Ent_iva" />
+                <ScalarProperty Name="Ent_Descuento" ColumnName="Ent_Descuento" />
+                <ScalarProperty Name="Nombre_Unidad" ColumnName="Nombre_Unidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGuardarExcel_Det_Sal" FunctionName="BD_InventarioModel.Store.spGuardarExcel_Det_Sal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_InventarioModel.spGuardarExcel_Det_Sal_Result">
+                <ScalarProperty Name="Sali_Fecha" ColumnName="Sali_Fecha" />
+                <ScalarProperty Name="Emp_Nombre" ColumnName="Emp_Nombre" />
+                <ScalarProperty Name="Cat_Nombre" ColumnName="Cat_Nombre" />
+                <ScalarProperty Name="Subca_Nombre" ColumnName="Subca_Nombre" />
+                <ScalarProperty Name="NomProducto" ColumnName="NomProducto" />
+                <ScalarProperty Name="Sal_Cantidad_Peso" ColumnName="Sal_Cantidad_Peso" />
+                <ScalarProperty Name="Tipo_Nombre" ColumnName="Tipo_Nombre" />
+                <ScalarProperty Name="Sal_Observacion" ColumnName="Sal_Observacion" />
+                <ScalarProperty Name="Nombre_Unidad" ColumnName="Nombre_Unidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGuardarExcel_Inventario" FunctionName="BD_InventarioModel.Store.spGuardarExcel_Inventario" />
+          <EntitySetMapping Name="Detalle_Entrada">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Detalle_Entrada">
+              <MappingFragment StoreEntitySet="Detalle_Entrada">
+                <ScalarProperty Name="Dispo_stock" ColumnName="Dispo_stock" />
+                <ScalarProperty Name="Ent_FechVencim" ColumnName="Ent_FechVencim" />
+                <ScalarProperty Name="Ent_Temperatura" ColumnName="Ent_Temperatura" />
+                <ScalarProperty Name="Ent_Descuento" ColumnName="Ent_Descuento" />
+                <ScalarProperty Name="Ent_iva" ColumnName="Ent_iva" />
+                <ScalarProperty Name="Ent_Precio_Total" ColumnName="Ent_Precio_Total" />
+                <ScalarProperty Name="Ent_Precio_Unitario" ColumnName="Ent_Precio_Unitario" />
+                <ScalarProperty Name="Ent_Factura" ColumnName="Ent_Factura" />
+                <ScalarProperty Name="Ent_Cantidad_Peso" ColumnName="Ent_Cantidad_Peso" />
+                <ScalarProperty Name="fk_Producto" ColumnName="fk_Producto" />
+                <ScalarProperty Name="fk_Donante" ColumnName="fk_Donante" />
+                <ScalarProperty Name="fk_Proveedor" ColumnName="fk_Proveedor" />
+                <ScalarProperty Name="fk_TipoEntrada" ColumnName="fk_TipoEntrada" />
+                <ScalarProperty Name="fk_Entrada" ColumnName="fk_Entrada" />
+                <ScalarProperty Name="ID_Det_entr" ColumnName="ID_Det_entr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detalle_Salida">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Detalle_Salida">
+              <MappingFragment StoreEntitySet="Detalle_Salida">
+                <ScalarProperty Name="Sal_Observacion" ColumnName="Sal_Observacion" />
+                <ScalarProperty Name="Sal_Cantidad_Peso" ColumnName="Sal_Cantidad_Peso" />
+                <ScalarProperty Name="fk_Producto" ColumnName="fk_Producto" />
+                <ScalarProperty Name="fk_TipoSalida" ColumnName="fk_TipoSalida" />
+                <ScalarProperty Name="fk_Salida" ColumnName="fk_Salida" />
+                <ScalarProperty Name="ID_Det_salid" ColumnName="ID_Det_salid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temporal">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Temporal">
+              <MappingFragment StoreEntitySet="Temporal">
+                <ScalarProperty Name="ID_NomProducto" ColumnName="ID_NomProducto" />
+                <ScalarProperty Name="ID_Subcategoria" ColumnName="ID_Subcategoria" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="Ent_FechVencim" ColumnName="Ent_FechVencim" />
+                <ScalarProperty Name="Ent_Temperatura" ColumnName="Ent_Temperatura" />
+                <ScalarProperty Name="Ent_Descuento" ColumnName="Ent_Descuento" />
+                <ScalarProperty Name="Ent_iva" ColumnName="Ent_iva" />
+                <ScalarProperty Name="Ent_Precio_Total" ColumnName="Ent_Precio_Total" />
+                <ScalarProperty Name="Ent_Precio_Unitario" ColumnName="Ent_Precio_Unitario" />
+                <ScalarProperty Name="Ent_Factura" ColumnName="Ent_Factura" />
+                <ScalarProperty Name="Ent_Cantidad_Peso" ColumnName="Ent_Cantidad_Peso" />
+                <ScalarProperty Name="fk_Producto" ColumnName="fk_Producto" />
+                <ScalarProperty Name="fk_Donante" ColumnName="fk_Donante" />
+                <ScalarProperty Name="fk_Proveedor" ColumnName="fk_Proveedor" />
+                <ScalarProperty Name="fk_TipoEntrada" ColumnName="fk_TipoEntrada" />
+                <ScalarProperty Name="fk_Entrada" ColumnName="fk_Entrada" />
+                <ScalarProperty Name="ID_Det_entr" ColumnName="ID_Det_entr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temporal2">
+            <EntityTypeMapping TypeName="BD_InventarioModel.Temporal2">
+              <MappingFragment StoreEntitySet="Temporal2">
+                <ScalarProperty Name="ID_NomProducto" ColumnName="ID_NomProducto" />
+                <ScalarProperty Name="ID_Subcategoria" ColumnName="ID_Subcategoria" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="Sal_Observacion" ColumnName="Sal_Observacion" />
+                <ScalarProperty Name="Sal_Cantidad_Peso" ColumnName="Sal_Cantidad_Peso" />
+                <ScalarProperty Name="fk_Producto" ColumnName="fk_Producto" />
+                <ScalarProperty Name="fk_TipoSalida" ColumnName="fk_TipoSalida" />
+                <ScalarProperty Name="fk_Salida" ColumnName="fk_Salida" />
+                <ScalarProperty Name="ID_Det_salid" ColumnName="ID_Det_salid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spMostrarDeta_Entradas" FunctionName="BD_InventarioModel.Store.spMostrarDeta_Entradas" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

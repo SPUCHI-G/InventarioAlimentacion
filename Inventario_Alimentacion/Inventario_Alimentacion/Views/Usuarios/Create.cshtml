@@ -1,0 +1,60 @@
+﻿@model Inventario_Alimentacion.Models.Usuario
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <h1 style="text-align: center">
+        <strong class="title">CREAR USUARIO</strong>
+    </h1>
+    <p style="text-align: center">NOTA: verifique que el empleado no tenga una cuenta existente </p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal" >
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Nombre Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Usu_Nombre, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.Usu_Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Contraseña", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.Usu_Contraseña, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.Usu_Contraseña, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Estado de cuenta", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                Activo : @Html.RadioButtonFor(model => model.Usu_Activo, "1",new {@checked = "checked" })
+                Inactivo: @Html.RadioButtonFor(model => model.Usu_Activo, "0")
+                @Html.ValidationMessageFor(model => model.Usu_Activo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Empleado Asignado", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ID_Empleado", new SelectList(ViewBag.ListaEmpleados, "Emp_Documento", "Emp_Documento"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="GUARDAR" class="btn btn-success" />
+                | @Html.ActionLink("Volver a la lista", "BusquedaFilter")
+            </div>
+        </div>
+    </div>
+
+   
+}

@@ -1,0 +1,129 @@
+﻿@model Inventario_Alimentacion.Models.Detalle_Entrada
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Detalle_Entrada</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ent_Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ent_Factura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Factura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ent_Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ent_iva)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_iva)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ent_Descuento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Descuento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ent_Peso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Peso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ent_Temperatura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_Temperatura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ent_FechVencim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ent_FechVencim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Donante.Don_Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Donante.Don_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entrada.ID_Entrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entrada.ID_Entrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Producto.ID_Producto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.ID_Producto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proveedor.Prov_Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proveedor.Prov_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_Entrada.Tipo_Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Entrada.Tipo_Nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="~/Imagen/icono.png" />
+    <title>@ViewBag.Title - Inventario de Alimentacion</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+        <div class="container body-content">
+            <header class="dropdown-header">
+                <div class="not-submenu">
+                    <div class="label">INICIO</div>
+                    <div class="spacer"></div>
+                    
+                        <div class="item"><span>@Html.ActionLink("Inicio", "Index", "Home")</span></div>
+                    
+
+                </div>
+                <div class="not-submenu">
+                    <div class="label">INGRESOS</div>
+                    <div class="spacer"></div><div class="item"><span>@Html.ActionLink("Ingresos", "Create", "Detalle_Entrada")</span></div>
+                </div>
+                <div class="not-submenu">
+                    <div class="label">SALIDAS</div>
+                    <div class="spacer"></div><div class="item"><span>@Html.ActionLink("Salidas", "Create", "Detalle_Salida")</span></div>
+                </div>
+                <div class="menu">
+                    <div class="label">JEFES DE INVENTARIO</div>
+                    <div class="spacer"></div><div class="item"><span>@Html.ActionLink("Registro de Entradas", "Index", "Detalle_Entrada")</span></div>
+                    <div class="item"><span>@Html.ActionLink("Registro de Salida", "Index", "Detalle_Salida")</span></div>
+
+                    <div class="item"><span>@Html.ActionLink("Registros por Empleados", "RegisEmpleado", "BuscarDetEmp")</span></div>
+
+                    <div class="item"><span>@Html.ActionLink("Consulta inventario", "Inventario", "ConsultaInventario")</span></div>
+
+                    <div class="item"><span>@Html.ActionLink("Administrar Proveedores", "BusquedaFilter", "Proveedors")</span></div>
+
+                    <div class="item"><span>@Html.ActionLink("Administrar Categorias", "BusquedaFilter", "Categorias")</span></div>
+                    </ul>
+                    <div class="item"><span>@Html.ActionLink("Administrar Donantes", "BusquedaFilter", "Donantes")</span></div>
+                </div>
+                <div class="menu">
+                    <div class="label">ADMINISTRADOR</div>
+                    <div class="spacer"></div><div class="item"><span>@Html.ActionLink("Usuarios", "BusquedaFilter", "Usuarios")</span></div>
+                    <div class="item"><span>@Html.ActionLink("Empleados inventario", "BusquedaFilter", "Empleado")</span></div>
+                </div>
+                <div class="menu">
+                    <div class="label">@Html.ActionLink("Cerrar Sesion", "Logoff", "Cerrar")</div>
+                    <div class="spacer"></div>
+                </div>
+
+            </header>
+        </div>
+    
+            <div class="container table-responsive">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+                </footer>
+            </div>
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+</body>
+</html>

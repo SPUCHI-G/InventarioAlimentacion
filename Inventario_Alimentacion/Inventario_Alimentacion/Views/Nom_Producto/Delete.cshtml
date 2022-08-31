@@ -1,0 +1,45 @@
+﻿@model Inventario_Alimentacion.Models.Nom_Producto
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 style="text-align: center"><strong class="title">ELIMINAR PRODUCTO</strong></h1>
+            <h3 style="text-align: center">¿Está seguro de eliminar este producto?</h3>
+            <p style="text-align: center">NOTA: si intenta borrar un producto que ya se relacionó en alguna salida o entrada no dejara borrar</p><br />
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                @Html.AntiForgeryToken()
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID_NomProducto)
+
+            </div>
+            <div class="col-lg-9">
+                @Html.Label("Nombre de la Subcategoria: ", htmlAttributes: new { @class = "control-label" })<br />
+                @Html.DropDownList("Subcategoria", new SelectList(ViewBag.ListaSubcategoria, "ID_Subcategoria", "Subca_Nombre"), htmlAttributes: new { @class = "form-control", @readonly = "true" })<br />
+                @Html.ValidationMessageFor(model => model.Subcategoria, "", new { @class = "text-danger" })<br />
+
+
+                @Html.Label("Nombre del Producto: ", htmlAttributes: new { @class = "control-label" })<br />
+                @Html.EditorFor(model => model.NomProducto, new { htmlAttributes = new { @class = "form-control", required = "required" } })<br />
+                @Html.ValidationMessageFor(model => model.NomProducto, "", new { @class = "text-danger" })<br />
+                <input type="submit" value="ELIMINAR PRODUCTO" class="btn btn-danger" />
+                |@Html.ActionLink("Volver a la lista", "BusquedaFilter3", "Nom_Producto")
+            </div>
+        </div>
+    }
+</div>

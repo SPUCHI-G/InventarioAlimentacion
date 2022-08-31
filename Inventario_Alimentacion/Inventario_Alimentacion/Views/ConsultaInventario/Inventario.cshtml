@@ -1,0 +1,171 @@
+﻿@model IEnumerable<Inventario_Alimentacion.Models.spConsultar_Inventario_Result>
+
+@{
+    ViewBag.Title = "Jefe";
+    Layout = "~/Views/Shared/_Layoutjefe.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="container">
+    <header>
+        @Html.AntiForgeryToken()
+        <section>
+            <table class="table-condensed" width="50%" align="center">
+                <tr>
+                    <td>
+                        @Html.ActionLink("Inventario actual", "Inventario", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Proximos a vencer", "Proximos", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Vencidos en stock", "Vencidos", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Informes", "Informes", "ConsultaInventario", null, new { @class = "btn btn-info" })
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <table class="table">
+
+            @using (Html.BeginForm())
+            {
+                <tr>
+                    <td>
+                        <h2>BUSQUEDA    <span><input type="image" alt="Submit" src="~/Imagen/search.png" class="img-btn" /></span> </h2>
+                    </td>
+                </tr>
+                <tr>
+
+
+                    <td>
+                        <div>
+                            <h2>
+                                Categoria: @Html.TextBox("ID_Categoria")
+                            </h2>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>
+                                Subcategoria:@Html.TextBox("ID_Subcategoria")
+                            </h2>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>
+                                Producto:@Html.TextBox("ID_NomProducto")
+                            </h2>
+                        </div>
+                    </td>
+
+                </tr>
+             }
+        </table>
+    </header>
+</div>
+<body>
+    <div>
+        <table>
+            <tr>
+                <th style="text-align:center">
+                    @Html.DisplayName("CATEGORIA")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("SUBCATEGORIA")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("PRODUCTO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("PROVEEDOR")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("SALDO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("PUNTO PEDIDO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("CANTIDAD SOLICITAR")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("VALOR UNITARIO")
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayName("VALOR TOTAL")
+                </th>
+            </tr>
+
+            @foreach (Inventario_Alimentacion.Models.spConsultar_Inventario_Result item in ViewBag.Lista)
+            {
+                <tr>
+                    @if (item.Saldo <= item.Min)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cat_Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subca_Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomProducto)
+                        </td>
+                        <td>
+                            @Html.Display(" ")
+                        </td>
+                        <td style="background-color: tomato">
+                            @Html.DisplayFor(modelItem => item.Saldo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Min)
+                        </td>
+                        <td style="background-color: khaki">
+                            @Html.DisplayFor(modelItem => item.Punto_pedido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ent_Precio_Unitario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ent_Precio_Total)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cat_Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subca_Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomProducto)
+                        </td>
+                        <td>
+                            @Html.Display(" ")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Saldo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Min)
+                        </td>
+                        <td>
+                            @Html.Display(" ")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ent_Precio_Unitario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ent_Precio_Total)
+                        </td>
+                    }
+
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</body>
